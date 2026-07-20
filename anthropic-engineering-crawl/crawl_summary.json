@@ -1,0 +1,227 @@
+[
+  {
+    "index": 1,
+    "title": "Designing AI-resistant technical evaluations",
+    "date": "Jan 21, 2026",
+    "source_url": "https://www.anthropic.com/engineering/AI-resistant-technical-evaluations",
+    "final_url": "https://www.anthropic.com/engineering/AI-resistant-technical-evaluations",
+    "char_count": 17088,
+    "wordish_count": 2717
+  },
+  {
+    "index": 2,
+    "title": "A postmortem of three recent issues",
+    "date": "Sep 17, 2025",
+    "source_url": "https://www.anthropic.com/engineering/a-postmortem-of-three-recent-issues",
+    "final_url": "https://www.anthropic.com/engineering/a-postmortem-of-three-recent-issues",
+    "char_count": 13876,
+    "wordish_count": 2132
+  },
+  {
+    "index": 3,
+    "title": "Introducing advanced tool use on the Claude Developer Platform",
+    "date": "Nov 24, 2025",
+    "source_url": "https://www.anthropic.com/engineering/advanced-tool-use",
+    "final_url": "https://www.anthropic.com/engineering/advanced-tool-use",
+    "char_count": 23005,
+    "wordish_count": 3183
+  },
+  {
+    "index": 4,
+    "title": "An update on recent Claude Code quality reports",
+    "date": "Apr 23, 2026",
+    "source_url": "https://www.anthropic.com/engineering/april-23-postmortem",
+    "final_url": "https://www.anthropic.com/engineering/april-23-postmortem",
+    "char_count": 10393,
+    "wordish_count": 1764
+  },
+  {
+    "index": 5,
+    "title": "Building a C compiler with a team of parallel Claudes",
+    "date": "Feb 05, 2026",
+    "source_url": "https://www.anthropic.com/engineering/building-c-compiler",
+    "final_url": "https://www.anthropic.com/engineering/building-c-compiler",
+    "char_count": 15278,
+    "wordish_count": 2533
+  },
+  {
+    "index": 6,
+    "title": "Building effective agents",
+    "date": "Dec 19, 2024",
+    "source_url": "https://www.anthropic.com/engineering/building-effective-agents",
+    "final_url": "https://www.anthropic.com/engineering/building-effective-agents",
+    "char_count": 18214,
+    "wordish_count": 2724
+  },
+  {
+    "index": 7,
+    "title": "How we built Claude Code auto mode: a safer way to skip permissions",
+    "date": "Mar 25, 2026",
+    "source_url": "https://www.anthropic.com/engineering/claude-code-auto-mode",
+    "final_url": "https://www.anthropic.com/engineering/claude-code-auto-mode",
+    "char_count": 22675,
+    "wordish_count": 3601
+  },
+  {
+    "index": 8,
+    "title": "Best practices for Claude Code",
+    "date": "",
+    "source_url": "https://www.anthropic.com/engineering/claude-code-best-practices",
+    "final_url": "https://code.claude.com/docs/en/best-practices",
+    "char_count": 32261,
+    "wordish_count": 5069
+  },
+  {
+    "index": 9,
+    "title": "Beyond permission prompts: making Claude Code more secure and autonomous",
+    "date": "Oct 20, 2025",
+    "source_url": "https://www.anthropic.com/engineering/claude-code-sandboxing",
+    "final_url": "https://www.anthropic.com/engineering/claude-code-sandboxing",
+    "char_count": 7516,
+    "wordish_count": 1165
+  },
+  {
+    "index": 10,
+    "title": "The \"think\" tool: Enabling Claude to stop and think in complex tool use situations",
+    "date": "Mar 20, 2025",
+    "source_url": "https://www.anthropic.com/engineering/claude-think-tool",
+    "final_url": "https://www.anthropic.com/engineering/claude-think-tool",
+    "char_count": 15138,
+    "wordish_count": 2357
+  },
+  {
+    "index": 11,
+    "title": "Code execution with MCP: Building more efficient agents",
+    "date": "Nov 04, 2025",
+    "source_url": "https://www.anthropic.com/engineering/code-execution-with-mcp",
+    "final_url": "https://www.anthropic.com/engineering/code-execution-with-mcp",
+    "char_count": 13774,
+    "wordish_count": 2012
+  },
+  {
+    "index": 12,
+    "title": "Introducing Contextual Retrieval",
+    "date": "Sep 19, 2024",
+    "source_url": "https://www.anthropic.com/engineering/contextual-retrieval",
+    "final_url": "https://www.anthropic.com/engineering/contextual-retrieval",
+    "char_count": 15254,
+    "wordish_count": 2337
+  },
+  {
+    "index": 13,
+    "title": "Demystifying evals for AI agents",
+    "date": "Jan 09, 2026",
+    "source_url": "https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents",
+    "final_url": "https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents",
+    "char_count": 39852,
+    "wordish_count": 6075
+  },
+  {
+    "index": 14,
+    "title": "Desktop Extensions: One-click MCP server installation for Claude Desktop",
+    "date": "Jun 26, 2025",
+    "source_url": "https://www.anthropic.com/engineering/desktop-extensions",
+    "final_url": "https://www.anthropic.com/engineering/desktop-extensions",
+    "char_count": 17505,
+    "wordish_count": 2376
+  },
+  {
+    "index": 15,
+    "title": "Effective context engineering for AI agents",
+    "date": "Sep 29, 2025",
+    "source_url": "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents",
+    "final_url": "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents",
+    "char_count": 21135,
+    "wordish_count": 3150
+  },
+  {
+    "index": 16,
+    "title": "Effective harnesses for long-running agents",
+    "date": "Nov 26, 2025",
+    "source_url": "https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents",
+    "final_url": "https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents",
+    "char_count": 13214,
+    "wordish_count": 2168
+  },
+  {
+    "index": 17,
+    "title": "Equipping agents for the real world with Agent Skills",
+    "date": "Oct 16, 2025",
+    "source_url": "https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills",
+    "final_url": "https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills",
+    "char_count": 9433,
+    "wordish_count": 1502
+  },
+  {
+    "index": 18,
+    "title": "Eval awareness in Claude Opus 4.6’s BrowseComp performance",
+    "date": "Mar 06, 2026",
+    "source_url": "https://www.anthropic.com/engineering/eval-awareness-browsecomp",
+    "final_url": "https://www.anthropic.com/engineering/eval-awareness-browsecomp",
+    "char_count": 13897,
+    "wordish_count": 2131
+  },
+  {
+    "index": 19,
+    "title": "Harness design for long-running application development",
+    "date": "Mar 24, 2026",
+    "source_url": "https://www.anthropic.com/engineering/harness-design-long-running-apps",
+    "final_url": "https://www.anthropic.com/engineering/harness-design-long-running-apps",
+    "char_count": 33150,
+    "wordish_count": 5325
+  },
+  {
+    "index": 20,
+    "title": "How we contain Claude across products",
+    "date": "May 25, 2026",
+    "source_url": "https://www.anthropic.com/engineering/how-we-contain-claude",
+    "final_url": "https://www.anthropic.com/engineering/how-we-contain-claude",
+    "char_count": 27835,
+    "wordish_count": 4419
+  },
+  {
+    "index": 21,
+    "title": "Quantifying infrastructure noise in agentic coding evals",
+    "date": "Feb 05, 2026",
+    "source_url": "https://www.anthropic.com/engineering/infrastructure-noise",
+    "final_url": "https://www.anthropic.com/engineering/infrastructure-noise",
+    "char_count": 12212,
+    "wordish_count": 1857
+  },
+  {
+    "index": 22,
+    "title": "Scaling Managed Agents: Decoupling the brain from the hands",
+    "date": "Apr 08, 2026",
+    "source_url": "https://www.anthropic.com/engineering/managed-agents",
+    "final_url": "https://www.anthropic.com/engineering/managed-agents",
+    "char_count": 12898,
+    "wordish_count": 2127
+  },
+  {
+    "index": 23,
+    "title": "How we built our multi-agent research system",
+    "date": "Jun 13, 2025",
+    "source_url": "https://www.anthropic.com/engineering/multi-agent-research-system",
+    "final_url": "https://www.anthropic.com/engineering/multi-agent-research-system",
+    "char_count": 25988,
+    "wordish_count": 3823
+  },
+  {
+    "index": 24,
+    "title": "Raising the bar on SWE-bench Verified with Claude 3.5 Sonnet",
+    "date": "Jan 06, 2025",
+    "source_url": "https://www.anthropic.com/engineering/swe-bench-sonnet",
+    "final_url": "https://www.anthropic.com/engineering/swe-bench-sonnet",
+    "char_count": 19081,
+    "wordish_count": 2977
+  },
+  {
+    "index": 25,
+    "title": "Writing effective tools for agents — with agents",
+    "date": "Sep 11, 2025",
+    "source_url": "https://www.anthropic.com/engineering/writing-tools-for-agents",
+    "final_url": "https://www.anthropic.com/engineering/writing-tools-for-agents",
+    "char_count": 21841,
+    "wordish_count": 3320
+  }
+]

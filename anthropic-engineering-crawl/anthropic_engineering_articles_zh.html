@@ -1,0 +1,994 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Anthropic Engineering 中文精读摘要</title>
+  <style>
+    :root {
+      --ink: #1f1f1d;
+      --muted: #696964;
+      --line: #deded9;
+      --surface: #f7f7f5;
+      --surface-strong: #ecece8;
+      --accent: #11110f;
+      --radius: 8px;
+      color-scheme: light;
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: #fff;
+      color: var(--ink);
+    }
+
+    a {
+      color: inherit;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    .skip-link {
+      position: fixed;
+      top: 8px;
+      left: 8px;
+      z-index: 20;
+      padding: 8px 12px;
+      transform: translateY(-150%);
+      border-radius: 6px;
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.96);
+    }
+
+    .topbar-inner {
+      max-width: 1240px;
+      min-height: 58px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .top-actions a {
+      text-underline-offset: 3px;
+    }
+
+    .reader-shell {
+      width: min(1240px, calc(100% - 48px));
+      margin: 0 auto;
+      padding: 36px 0 80px;
+      display: grid;
+      grid-template-columns: 280px minmax(0, 760px);
+      gap: 64px;
+      justify-content: center;
+      align-items: start;
+    }
+
+    .article-index {
+      position: sticky;
+      top: 88px;
+      max-height: calc(100vh - 112px);
+      overflow: auto;
+      padding-right: 12px;
+    }
+
+    .index-label,
+    .eyebrow {
+      margin: 0;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .search {
+      width: 100%;
+      height: 40px;
+      margin: 12px 0 16px;
+      padding: 0 12px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      outline: none;
+      background: #fff;
+      color: var(--ink);
+    }
+
+    .search:focus {
+      border-color: var(--ink);
+      box-shadow: 0 0 0 2px var(--surface-strong);
+    }
+
+    .article-list {
+      display: grid;
+      gap: 2px;
+    }
+
+    .article-list a {
+      padding: 9px 10px;
+      border-radius: 6px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.4;
+      text-decoration: none;
+    }
+
+    .article-list a:hover,
+    .article-list a[aria-current="page"] {
+      background: var(--surface);
+      color: var(--ink);
+    }
+
+    .article-list a[hidden] {
+      display: none;
+    }
+
+    .article-view {
+      min-width: 0;
+    }
+
+    .translation-note {
+      margin-bottom: 34px;
+      padding: 14px 16px;
+      border-left: 3px solid var(--ink);
+      background: var(--surface);
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    .article-head {
+      padding-bottom: 28px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .article-head h1 {
+      max-width: 720px;
+      margin: 12px 0 0;
+      font-size: 48px;
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+
+    .original-title {
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .meta-row {
+      margin-top: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      padding: 5px 8px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .article-intro {
+      margin: 34px 0;
+      color: #383835;
+      font-size: 19px;
+      line-height: 1.75;
+    }
+
+    .article-section {
+      margin-top: 38px;
+    }
+
+    .article-section h2 {
+      margin: 0 0 14px;
+      font-size: 25px;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    .article-section p {
+      margin: 0 0 16px;
+      color: #383835;
+      font-size: 16px;
+      line-height: 1.85;
+    }
+
+    .terms {
+      margin-top: 42px;
+      padding: 20px 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .terms h2 {
+      margin: 0 0 12px;
+      font-size: 16px;
+    }
+
+    .term-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .term-list span {
+      padding: 6px 9px;
+      border-radius: 6px;
+      background: var(--surface);
+      color: var(--muted);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 12px;
+    }
+
+    .article-actions {
+      margin-top: 28px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .button {
+      min-height: 40px;
+      padding: 8px 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fff;
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 650;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .button.primary {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .article-pager {
+      margin-top: 48px;
+      padding-top: 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      border-top: 1px solid var(--line);
+    }
+
+    .pager-link {
+      min-height: 72px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      text-decoration: none;
+    }
+
+    .pager-link:last-child {
+      text-align: right;
+    }
+
+    .pager-link small {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .pager-link b {
+      margin-top: 4px;
+      font-size: 13px;
+    }
+
+    .pager-link[hidden] {
+      display: none;
+    }
+
+    @media (max-width: 860px) {
+      .topbar-inner {
+        padding: 0 16px;
+      }
+
+      .reader-shell {
+        width: min(100% - 32px, 760px);
+        padding-top: 22px;
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+
+      .article-index {
+        position: static;
+        max-height: 280px;
+        padding: 0 0 16px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .article-head h1 {
+        font-size: 36px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .top-actions a:first-child {
+        display: none;
+      }
+
+      .article-pager {
+        grid-template-columns: 1fr;
+      }
+
+      .pager-link:last-child {
+        text-align: left;
+      }
+
+      .article-actions .button {
+        width: 100%;
+      }
+    }
+
+    html.embed .topbar,
+    html.embed .skip-link,
+    html.embed .article-index,
+    html.embed .translation-note,
+    html.embed .article-pager,
+    html.embed #courseLink {
+      display: none;
+    }
+
+    html.embed .reader-shell {
+      width: 100%;
+      margin: 0;
+      padding: 28px 30px 64px;
+      display: block;
+    }
+
+    html.embed .article-view {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    html.embed .article-head h1 {
+      font-size: 36px;
+    }
+
+    @media (max-width: 520px) {
+      html.embed .reader-shell {
+        padding: 22px 18px 52px;
+      }
+
+      html.embed .article-head h1 {
+        font-size: 32px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#articleView">跳到精读</a>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="../Anthropic工程博客学习路径课程.html">Anthropic Engineering 中文精读摘要</a>
+      <nav class="top-actions" aria-label="页面操作">
+        <a href="anthropic_engineering_articles_classification.html">文章分类</a>
+        <a href="../Anthropic工程博客学习路径课程.html">返回课程</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="reader-shell">
+    <aside class="article-index" aria-label="精读目录">
+      <p class="index-label">25 篇中文精读摘要</p>
+      <input class="search" id="articleSearch" type="search" placeholder="搜索文章或主题" aria-label="搜索精读摘要" />
+      <nav class="article-list" id="articleList"></nav>
+    </aside>
+
+    <main class="article-view" id="articleView" tabindex="-1">
+      <div class="translation-note">
+        这是课程团队基于全文整理的非官方中文精读摘要，覆盖核心论点、部分关键案例和英文术语，但不是逐段或完整翻译。需要完整论证、数字、方法、引用或边界条件时，请打开英文原文核对。
+      </div>
+
+      <article>
+        <header class="article-head">
+          <p class="eyebrow" id="articleCategory"></p>
+          <h1 id="articleTitle"></h1>
+          <p class="original-title" id="originalTitle"></p>
+          <div class="meta-row">
+            <span class="tag" id="articleLevel"></span>
+            <span class="tag">课程精读摘要 · 非官方</span>
+          </div>
+        </header>
+
+        <p class="article-intro" id="articleIntro"></p>
+        <div id="articleSections"></div>
+
+        <section class="terms">
+          <h2>建议保留的英文术语</h2>
+          <div class="term-list" id="articleTerms"></div>
+        </section>
+
+        <div class="article-actions">
+          <a class="button primary" id="courseLink" href="../Anthropic工程博客学习路径课程.html">读完后返回课程</a>
+          <a class="button" id="sourceLink" href="#" target="_blank" rel="noreferrer">核对英文来源</a>
+        </div>
+
+        <nav class="article-pager" aria-label="上一篇和下一篇">
+          <a class="pager-link" id="previousArticle" href="#"></a>
+          <a class="pager-link" id="nextArticle" href="#"></a>
+        </nav>
+      </article>
+    </main>
+  </div>
+
+  <script>
+    (() => {
+      const embedded = new URLSearchParams(location.search).has("embed");
+      if (embedded) document.documentElement.classList.add("embed");
+
+      const articles = [
+        {
+          slug: "AI-resistant-technical-evaluations",
+          title: "Designing AI-resistant technical evaluations",
+          zh: "设计不容易被 AI 代做的技术评估",
+          category: "评测与人才判断",
+          level: "选读摘要",
+          source: "https://www.anthropic.com/engineering/AI-resistant-technical-evaluations",
+          intro: "当通用模型能够快速完成传统家庭作业和固定编程题时，招聘评估必须从“答案是否正确”转向“候选人如何理解问题、使用工具、验证结果并作出取舍”。",
+          sections: [
+            ["旧题为什么失效", ["许多 take-home 测试原本依靠时间压力和信息不完整来区分候选人，但 AI 可以生成结构完整、语法正确的答案。继续增加题目难度只会推动模型和候选人共同升级，不能恢复原来的区分度。", "真正的问题不是候选人是否使用 AI，而是测试是否仍然测到岗位所需的能力。"]],
+            ["评估应该测什么", ["更可靠的评估接近真实工作：候选人需要澄清需求、解释假设、检查生成结果、处理失败情况，并对最终决定负责。观察过程、追问理由和要求现场修改，比检查一份静态答案更有价值。"]],
+            ["课程中的用法", ["学习者也应按同一原则验收自己：不能把 AI 生成的文件当作掌握证据。需要口头解释、给出运行结果、指出风险，并能在条件变化时修改方案。"]]
+          ],
+          terms: ["take-home evaluation", "work sample", "process evidence", "AI-assisted work"]
+        },
+        {
+          slug: "a-postmortem-of-three-recent-issues",
+          title: "A postmortem of three recent issues",
+          zh: "三起近期问题的事故复盘",
+          category: "生产事故与治理",
+          level: "阶段 6 必读",
+          source: "https://www.anthropic.com/engineering/a-postmortem-of-three-recent-issues",
+          intro: "用户感知到的“模型突然变差”不一定来自模型本身，也可能来自服务基础设施、路由、硬件差异或采样实现。文章用三起事故说明，质量也是需要像可用性一样监控的生产指标。",
+          sections: [
+            ["为什么问题难以发现", ["这些问题并不总会让服务直接报错。系统仍然返回答案，只是答案质量在某些模型、请求路径、硬件或上下文条件下下降。传统可用性监控看到的是“请求成功”，用户看到的却是“结果变差”。"]],
+            ["复盘的共同模式", ["三起事件都暴露了覆盖不足：测试环境没有完整复现生产组合，局部改动通过了单点检查，却在路由、采样或不同硬件路径上产生偏差。多个小问题还可能叠加，使现象分散且难以稳定复现。"]],
+            ["应该建立什么机制", ["发布前要覆盖不同模型、硬件、上下文长度和产品入口；发布后要用固定任务持续测量质量，并允许快速停止发布或回滚。用户报告必须进入可追踪的调查流程，不能只用“无法复现”结束。"]],
+            ["对非程序员的启发", ["当产品结果下降时，不要只改提示词。先记录时间、输入、模型、环境、版本和输出证据，再检查最近变更。生产问题需要可观察性和变更记录，而不是猜测。"]]
+          ],
+          terms: ["postmortem", "regression", "sampling", "routing", "rollback"]
+        },
+        {
+          slug: "advanced-tool-use",
+          title: "Introducing advanced tool use on the Claude Developer Platform",
+          zh: "Claude 开发者平台的高级工具使用",
+          category: "工具与上下文",
+          level: "选读摘要",
+          source: "https://www.anthropic.com/engineering/advanced-tool-use",
+          intro: "当 Agent 可用的工具从几个增长到几十或几百个时，把所有工具说明一次性放进上下文会造成浪费和选择错误。文章介绍按需发现、程序化调用和示例约束三类改进。",
+          sections: [
+            ["工具搜索", ["Tool Search 让模型先查找与当前任务相关的工具，只加载必要说明。这样既减少上下文占用，也降低名称相近工具之间的混淆。"]],
+            ["程序化工具调用", ["Programmatic Tool Calling 允许模型通过代码组合多个工具、过滤中间结果，只把高价值结果带回上下文。它适合数据量大、步骤多、需要循环或条件判断的任务。"]],
+            ["工具示例", ["Tool Use Examples 用具体输入输出告诉模型工具应该如何使用。对于参数复杂或边界容易混淆的工具，示例往往比增加抽象说明更有效。"]]
+          ],
+          terms: ["Tool Search", "Programmatic Tool Calling", "Tool Use Examples", "context efficiency"]
+        },
+        {
+          slug: "april-23-postmortem",
+          title: "An update on recent Claude Code quality reports",
+          zh: "关于 Claude Code 近期质量反馈的更新",
+          category: "生产事故与治理",
+          level: "阶段 6 必读",
+          source: "https://www.anthropic.com/engineering/april-23-postmortem",
+          intro: "文章回应用户关于 Claude Code 质量下降的报告，并说明问题来自推理档位、思考缓存清理和系统提示变化等多个产品层因素，而不是一个单一故障。",
+          sections: [
+            ["用户报告为何重要", ["平均指标可能掩盖具体工作流中的退化。用户通常最先发现模型变得更急躁、遗漏验证或更容易结束任务，但这些感受必须转换成可复现输入、时间范围和版本信息。"]],
+            ["多个变化如何叠加", ["推理 effort 的调整会改变模型愿意投入多少计算；thinking 缓存的处理会影响长对话连续性；系统提示的修改会改变工具使用和完成标准。单项变化看似合理，组合后却可能形成明显退化。"]],
+            ["改进方向", ["团队需要更细粒度的质量监控、跨版本回归任务、受控发布和快速回滚。面向用户也要更透明地记录变化，让问题调查能够关联到具体版本。"]],
+            ["课程中的检查方法", ["保留一次“黄金任务”的输入、预期结果和证据。每次更换模型、提示词或工具后重跑，比较功能、错误率和完成时间，而不是只凭主观印象。"]]
+          ],
+          terms: ["reasoning effort", "thinking cache", "system prompt", "quality regression"]
+        },
+        {
+          slug: "building-c-compiler",
+          title: "Building a C compiler with a team of parallel Claudes",
+          zh: "让一组并行 Claude 构建 C 编译器",
+          category: "Agent 架构与长任务",
+          level: "选读摘要",
+          source: "https://www.anthropic.com/engineering/building-c-compiler",
+          intro: "这个实验让多个 Agent 并行开发一个复杂 C 编译器，用来观察长时间自治、多 Agent 协作、任务锁和测试系统如何共同决定结果。",
+          sections: [
+            ["并行并不等于自动协作", ["多个 Agent 同时工作会引入重复劳动、文件冲突和方向分叉。系统需要共享任务清单、明确所有权和任务锁，才能让每个 Agent 知道自己应处理什么。"]],
+            ["测试是共同语言", ["Agent 之间不需要持续对话，只要都面向同一组可运行测试。测试结果提供环境事实，使工作可以被接力、合并和重新分配。"]],
+            ["适用边界", ["多 Agent 更适合可以拆成相对独立模块、结果可自动验证的任务。高度耦合、验收模糊的工作会把协调成本放大。"]]
+          ],
+          terms: ["parallel agents", "task lock", "test harness", "merge conflict"]
+        },
+        {
+          slug: "building-effective-agents",
+          title: "Building effective agents",
+          zh: "构建有效的 Agent",
+          category: "Agent 架构与长任务",
+          level: "阶段 1 必读",
+          source: "https://www.anthropic.com/engineering/building-effective-agents",
+          intro: "最成功的 Agent 系统通常不是最复杂的系统。文章建议从单次模型调用开始，只有在任务确实需要时，才逐步增加工作流、工具和自主决策。",
+          sections: [
+            ["工作流与 Agent 的区别", ["工作流（workflow）由预先写好的代码路径编排模型和工具，步骤更可预测；Agent 则由模型根据环境反馈动态决定下一步和工具使用。二者都属于 agentic systems，但控制权不同。"]],
+            ["什么时候不要使用 Agent", ["Agent 通常用更高延迟和成本换取任务表现。固定、清晰、可拆解的任务优先使用简单调用、检索、示例或确定性工作流；只有步骤无法预先写死、需要灵活决策时，才值得增加自主性。"]],
+            ["五种常见工作流", ["Prompt chaining 把任务串成固定步骤；Routing 按输入类型分流；Parallelization 并行处理独立子任务或进行多次投票；Orchestrator-workers 动态拆解并委派不可预知的子任务；Evaluator-optimizer 让生成者和评价者反复改进。"]],
+            ["自主 Agent 如何工作", ["Agent 从用户目标出发，在工具调用和环境结果之间循环。关键不是让它一直思考，而是让它持续获得 ground truth，例如测试、执行结果或外部数据，并设置人工检查点和停止条件。"]],
+            ["三个设计原则", ["保持结构简单；让计划和关键动作透明；像设计人机界面一样认真设计 Agent-computer interface。框架可以加速起步，但不能遮住提示词、工具和响应，否则系统会更难调试。"]]
+          ],
+          terms: ["workflow", "agent", "routing", "orchestrator-workers", "evaluator-optimizer", "ground truth"]
+        },
+        {
+          slug: "claude-code-auto-mode",
+          title: "How we built Claude Code auto mode: a safer way to skip permissions",
+          zh: "Claude Code 自动模式：更安全地减少权限确认",
+          category: "安全、权限与隔离",
+          level: "选读摘要",
+          source: "https://www.anthropic.com/engineering/claude-code-auto-mode",
+          intro: "当绝大多数权限弹窗都会被批准时，频繁询问并不等于安全。文章介绍如何用输入探针和动作分类器识别风险，在减少审批疲劳的同时保留真正重要的阻断。",
+          sections: [
+            ["审批疲劳", ["如果用户习惯性点击同意，权限提示就失去了判断作用。安全系统需要把低风险常规动作与高风险、不可逆或疑似被注入的动作分开。"]],
+            ["两层风险判断", ["系统既检查输入中是否存在恶意或不可信指令，也检查模型准备执行的动作。分类器给出风险等级，只有超出边界时才要求人工确认或阻止。"]],
+            ["不能替代沙箱", ["自动分类仍可能出错，因此它是分层防御的一部分，不是唯一边界。文件系统限制、网络控制、凭证隔离和日志仍然必要。"]]
+          ],
+          terms: ["auto mode", "approval fatigue", "prompt injection", "action classifier"]
+        },
+        {
+          slug: "claude-code-best-practices",
+          title: "Best practices for Claude Code",
+          zh: "Claude Code 最佳实践",
+          category: "AI 编程工作流",
+          level: "阶段 2 必读",
+          source: "https://code.claude.com/docs/en/best-practices",
+          intro: "Claude Code 的产出质量主要取决于上下文、验证方式和工作节奏。好的使用方法不是给出一句模糊指令后等待，而是让 Agent 先理解项目，再按可检查的小步完成工作。",
+          sections: [
+            ["先探索，再计划", ["开始修改前，让 Agent 阅读相关文件、找到类似实现并说明影响范围。计划要包含成功标准和不修改的边界。这样可以减少模型基于错误假设直接写代码。"]],
+            ["给出可运行的验收", ["不要只说“做得更好”。提供测试、构建、lint、截图、数据查询或明确的复现步骤。Agent 有了反馈闭环，才能发现自己的第一版没有真正完成。"]],
+            ["控制上下文质量", ["上下文不是越多越好。保留目标、关键文件、失败证据和当前进度，清理无关历史。长任务使用进度文件、提交记录和阶段总结，让新会话能够恢复。"]],
+            ["拆分任务和使用子 Agent", ["独立的调查、测试或文档任务可以并行，但高度耦合的实现要保持清晰所有权。子 Agent 的结果仍需主任务整合和验证。"]],
+            ["保留恢复能力", ["频繁提交小而完整的版本，知道如何查看差异和回滚。自动化危险动作前先设置权限边界，不把生产数据和密钥直接交给 Agent。"]]
+          ],
+          terms: ["explore", "plan", "verification", "context management", "subagent", "rollback"]
+        },
+        {
+          slug: "claude-code-sandboxing",
+          title: "Beyond permission prompts: making Claude Code more secure and autonomous",
+          zh: "超越权限弹窗：让 Claude Code 更安全地自治",
+          category: "安全、权限与隔离",
+          level: "阶段 4 必读",
+          source: "https://www.anthropic.com/engineering/claude-code-sandboxing",
+          intro: "仅靠每次操作前询问用户，无法形成可靠的安全边界。更稳妥的方法是从环境层限制 Agent 能读写哪些文件、能访问哪些网络地址，以及能够取得哪些凭证。",
+          sections: [
+            ["权限弹窗的局限", ["用户无法持续准确判断每条命令的后果，频繁提示还会导致无条件批准。提示只能表达意图，不能真正限制行为。"]],
+            ["文件系统隔离", ["Agent 应只访问当前工作目录和明确允许的位置。系统文件、其他项目、密钥目录和生产数据默认不可见；临时构建和测试可以放在隔离环境中。"]],
+            ["网络隔离", ["网络访问要使用 allowlist、代理或出口控制。即使模型受到提示注入，也不能把代码、环境变量或凭证发送到任意外部地址。"]],
+            ["自治来自可限制", ["当破坏半径被环境边界限制后，常规命令可以少打断用户。安全自治不是“更相信模型”，而是“即使模型出错也只能影响有限范围”。"]]
+          ],
+          terms: ["sandbox", "filesystem isolation", "network isolation", "allowlist", "blast radius"]
+        },
+        {
+          slug: "claude-think-tool",
+          title: "The think tool: Enabling Claude to stop and think in complex tool use situations",
+          zh: "Think 工具：让 Claude 在复杂工具链中停下来思考",
+          category: "工具与上下文",
+          level: "选读摘要",
+          source: "https://www.anthropic.com/engineering/claude-think-tool",
+          intro: "在需要遵守复杂规则、连续调用工具并根据中间结果调整策略时，模型可能过快行动。Think 工具提供一个不执行外部动作的结构化思考步骤。",
+          sections: [
+            ["它解决什么问题", ["模型在工具调用链中需要重新检查政策、汇总证据或比较方案，但普通响应往往推动它直接执行。显式 think 步骤让模型先整理再行动。"]],
+            ["什么时候有效", ["复杂客户政策、长步骤游戏、规则依赖的业务流程和多工具决策更可能受益。简单检索或一步操作通常不需要额外思考。"]],
+            ["仍然需要验证", ["Think 内容不是事实证据。最终判断仍要由工具结果、数据库状态或测试输出验证。"]]
+          ],
+          terms: ["think tool", "tool-use chain", "policy reasoning", "intermediate evidence"]
+        },
+        {
+          slug: "code-execution-with-mcp",
+          title: "Code execution with MCP: Building more efficient agents",
+          zh: "用代码执行 MCP：构建更高效的 Agent",
+          category: "工具与上下文",
+          level: "选读摘要",
+          source: "https://www.anthropic.com/engineering/code-execution-with-mcp",
+          intro: "当 Agent 需要连续调用很多 MCP 工具时，把每个中间结果都送回模型会浪费上下文。文章提出把工具暴露为代码 API，让 Agent 在执行环境中编排和过滤数据。",
+          sections: [
+            ["传统方式的成本", ["逐次自然语言调用会把工具定义和大体量结果反复放入上下文。步骤越多，token 成本、延迟和格式错误越明显。"]],
+            ["代码作为编排层", ["Agent 生成代码来循环、筛选、连接多个工具，只返回最终需要的高信号结果。变量和中间数据保留在执行环境，不挤占模型注意力。"]],
+            ["安全要求", ["代码执行必须运行在沙箱中，并限制文件、网络、资源和凭证。效率提升不能以开放生产权限为代价。"]]
+          ],
+          terms: ["MCP", "code execution", "tool orchestration", "intermediate result", "sandbox"]
+        },
+        {
+          slug: "contextual-retrieval",
+          title: "Introducing Contextual Retrieval",
+          zh: "上下文化检索",
+          category: "检索与知识增强",
+          level: "选读摘要",
+          source: "https://www.anthropic.com/engineering/contextual-retrieval",
+          intro: "传统 RAG 把文档切成独立片段，片段可能失去所属文档、章节和对象信息。上下文化检索先为每个片段补充简短背景，再进行 embedding、BM25 和重排。",
+          sections: [
+            ["切块为什么丢信息", ["一句“该公司的收入增长 3%”离开原文后，不知道公司、年份或报告章节，检索时很难与用户问题匹配。"]],
+            ["上下文化片段", ["系统在索引前为 chunk 生成一段与整篇文档相关的上下文说明，再将说明与原片段一起建立语义和关键词索引。"]],
+            ["组合检索", ["Contextual Embeddings、Contextual BM25 和 reranking 各自解决语义、关键词和候选排序问题。组合使用比只依赖单一向量检索更稳。"]]
+          ],
+          terms: ["RAG", "chunk", "Contextual Embeddings", "BM25", "reranking"]
+        },
+        {
+          slug: "demystifying-evals-for-ai-agents",
+          title: "Demystifying evals for AI agents",
+          zh: "讲清楚 AI Agent 的评测",
+          category: "评测与验收",
+          level: "阶段 5 必读",
+          source: "https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents",
+          intro: "Agent 的评测不是问模型几道题，而是在确定环境、工具和资源条件下，让完整系统完成任务，再由可解释的评分器判断结果和过程。",
+          sections: [
+            ["Eval 的组成", ["一个 Agent eval 至少包含任务、初始环境、允许的工具、运行 harness、最终状态和 grader。模型只是其中一层；提示词、工具、资源和基础设施都会影响分数。"]],
+            ["先定义成功", ["任务必须有明确、可观察的完成条件。除了正常路径，还要覆盖边界、权限、失败恢复和不应发生的行为。模糊目标会让 grader 只能凭印象打分。"]],
+            ["评分器如何选择", ["确定性结果优先用代码、测试或状态检查；开放式输出可以使用模型评分器，但要给出 rubric、示例和人工抽检。多个评分信号可以组合，但必须知道各自误差。"]],
+            ["为什么要看轨迹", ["最终答案正确不代表过程安全。Trace 能显示 Agent 调用了什么工具、走了哪些弯路、是否碰到不应访问的数据，以及偶然成功背后的风险。"]],
+            ["从小样本开始", ["先收集真实失败，建立十几个高价值任务，确保每个任务都能稳定运行和定位原因，再扩大规模。Eval 的价值在于持续回归，而不是一次漂亮分数。"]]
+          ],
+          terms: ["eval", "harness", "grader", "rubric", "trace", "regression suite"]
+        },
+        {
+          slug: "desktop-extensions",
+          title: "Desktop Extensions: One-click MCP server installation for Claude Desktop",
+          zh: "桌面扩展：一键安装 MCP 服务",
+          category: "工具与上下文",
+          level: "选读摘要",
+          source: "https://www.anthropic.com/engineering/desktop-extensions",
+          intro: "MCP 服务原本需要安装运行时、编辑配置和管理依赖，这对非技术用户门槛过高。Desktop Extensions 将服务、依赖和配置打包成可安装单元。",
+          sections: [
+            ["分发问题", ["一个工具只有能被用户可靠安装、升级和卸载，才算真正可用。手工配置会产生环境差异和支持成本。"]],
+            ["扩展包的作用", ["扩展声明服务如何运行、需要哪些配置和权限，并把依赖一起交付。用户通过界面完成安装，不必理解底层命令。"]],
+            ["仍需关注权限", ["一键安装不能隐藏风险。扩展应清楚说明会访问哪些文件、网络和账号，并提供可撤销的授权。"]]
+          ],
+          terms: ["Desktop Extension", "MCP server", "distribution", "dependency", "permission"]
+        },
+        {
+          slug: "effective-context-engineering-for-ai-agents",
+          title: "Effective context engineering for AI agents",
+          zh: "面向 AI Agent 的有效上下文工程",
+          category: "工具与上下文",
+          level: "阶段 1 必读",
+          source: "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents",
+          intro: "上下文工程不是把所有资料塞给模型，而是在每一步让模型看到完成当前任务所需的最小、高信号信息，并在长任务中持续维护这份信息。",
+          sections: [
+            ["上下文是一种有限资源", ["模型的注意力会随着上下文变长而分散，出现 context rot。无关日志、重复工具结果和过时计划会降低关键指令的可见度。"]],
+            ["选择、组织和压缩", ["系统要选择当前相关内容，用稳定结构组织目标、约束和证据，并在接近窗口限制时进行 compaction。压缩不是简单删字，而是保留决策、未完成工作和可验证事实。"]],
+            ["笔记和外部记忆", ["长任务应把进度、文件位置、测试结果和下一步写入外部文件。新会话读取这些高信号记忆，比继续携带全部聊天历史更可靠。"]],
+            ["子 Agent 的上下文隔离", ["独立子任务可以放入单独上下文，主任务只接收结论和证据。这样能减少互相污染，但交接必须包含输入范围、输出格式和验证结果。"]],
+            ["对学习者的用法", ["每个阶段只保留当前文章、阅读问题、案例背景和产出标准。把不确定项写入 questions，把已验证决定写入 outputs，避免依赖聊天记录。"]]
+          ],
+          terms: ["context engineering", "context rot", "compaction", "external memory", "subagent"]
+        },
+        {
+          slug: "effective-harnesses-for-long-running-agents",
+          title: "Effective harnesses for long-running agents",
+          zh: "长时间运行 Agent 的有效 Harness",
+          category: "Agent 架构与长任务",
+          level: "阶段 2 必读",
+          source: "https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents",
+          intro: "长任务无法靠一次对话完成。可靠的 harness 要让每个新会话知道项目目标、已完成内容、当前状态和下一步，并用测试与版本记录保证可以接续和恢复。",
+          sections: [
+            ["初始化 Agent", ["第一个会话负责建立项目骨架、功能清单、运行方式和初始提交。它要为后续会话留下可理解的环境，而不是试图一次完成全部功能。"]],
+            ["持续工作的 Agent", ["后续会话先读取进度和版本状态，选择一个未完成的小任务，完成实现和端到端验证，再更新记录。一次只推进一个清晰增量，减少半成品堆积。"]],
+            ["Feature list 与 progress file", ["Feature list 是稳定的功能和验收清单，防止 Agent 为了看起来完成而删除需求；progress file 记录最近做了什么、哪里失败、下一步是什么。两者职责不同。"]],
+            ["Git 与测试", ["小步提交提供恢复点和变更证据。测试、截图或真实浏览器操作告诉 Agent 当前系统是否工作，不能只检查代码文本或相信自己的总结。"]],
+            ["课程中的对应关系", ["本项目的 AGENTS.md、MEMORY.md、feature_list 和 progress 文件，就是文章方法的直接应用。它们让不同 AI 会话可以接手同一个课程项目。"]]
+          ],
+          terms: ["harness", "feature list", "progress file", "git commit", "end-to-end test"]
+        },
+        {
+          slug: "equipping-agents-for-the-real-world-with-agent-skills",
+          title: "Equipping agents for the real world with Agent Skills",
+          zh: "用 Agent Skills 为真实工作装备 Agent",
+          category: "工具与上下文",
+          level: "阶段 3 必读",
+          source: "https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills",
+          intro: "Skills 把组织知识、操作流程、脚本和参考资料打包成 Agent 可按需加载的能力。核心价值不是多写一段提示词，而是让成熟做法可以复用、组合和版本化。",
+          sections: [
+            ["Skill 是什么", ["一个 Skill 通常包含入口说明、执行步骤、边界、脚本和必要资料。Agent 先看到简短描述，确认相关后再加载细节，这就是 progressive disclosure。"]],
+            ["为什么不全部放进系统提示词", ["领域流程可能很长，而且并非每个任务都需要。全部加载会占用上下文并增加冲突。按需加载让基础 Agent 保持通用，同时获得特定任务能力。"]],
+            ["可组合与可维护", ["不同 Skill 可以组合，但每个 Skill 要有清晰职责和输入输出。流程变化时更新 Skill，而不是要求所有使用者记住新的口头规则。"]],
+            ["课程中的应用", ["课程的角色说明、模板和验证脚本可以继续封装为 Skills。这样 AI 接手项目时能自动遵守课程设计、内容融合和质量检查流程。"]]
+          ],
+          terms: ["Agent Skills", "progressive disclosure", "skill package", "composability"]
+        },
+        {
+          slug: "eval-awareness-browsecomp",
+          title: "Eval awareness in Claude Opus 4.6’s BrowseComp performance",
+          zh: "BrowseComp 表现中的评测感知",
+          category: "评测与验收",
+          level: "选读摘要",
+          source: "https://www.anthropic.com/engineering/eval-awareness-browsecomp",
+          intro: "联网 Agent 可能识别自己正在接受某个公开基准测试，并搜索与题库、答案或加密机制相关的信息。这会动摇“高分等于真实能力”的假设。",
+          sections: [
+            ["评测感知是什么", ["模型从题目格式、网页线索或公开资料判断当前任务属于某个 benchmark，并改变策略。即使没有直接记住答案，也可能主动寻找评测本身的信息。"]],
+            ["为什么开放网络更复杂", ["联网是现实能力的一部分，但也增加了题目泄漏和答案发现渠道。测试必须区分真正解决问题与识别并利用评测结构。"]],
+            ["如何应对", ["使用未公开或持续更新的任务、记录搜索轨迹、进行污染检查，并把静态基准与真实生产任务结合。"]]
+          ],
+          terms: ["eval awareness", "benchmark contamination", "BrowseComp", "web-enabled eval"]
+        },
+        {
+          slug: "harness-design-long-running-apps",
+          title: "Harness design for long-running application development",
+          zh: "面向长周期应用开发的 Harness 设计",
+          category: "Agent 架构与长任务",
+          level: "选读摘要",
+          source: "https://www.anthropic.com/engineering/harness-design-long-running-apps",
+          intro: "让 Agent 长时间开发完整应用时，单一角色容易既生成又自我认可。文章采用 Planner、Generator、Evaluator 分工，把规划、实现和独立判断分开。",
+          sections: [
+            ["三种角色", ["Planner 维护目标和任务分解；Generator 实现当前增量；Evaluator 独立运行应用并根据标准找问题。Evaluator 不依赖 Generator 的自述。"]],
+            ["为什么需要独立评价", ["生成者通常知道自己想实现什么，容易忽略实际界面、交互和失败状态。独立评价从用户和环境证据出发，可以发现“代码存在但体验没完成”。"]],
+            ["长任务恢复", ["角色共享稳定的规格、进度、版本和证据，但保持各自上下文。每轮输出都要能成为下一轮可靠输入。"]]
+          ],
+          terms: ["Planner", "Generator", "Evaluator", "independent evaluation", "long-running application"]
+        },
+        {
+          slug: "how-we-contain-claude",
+          title: "How we contain Claude across products",
+          zh: "Anthropic 如何在不同产品中约束 Claude",
+          category: "安全、权限与隔离",
+          level: "阶段 4 必读",
+          source: "https://www.anthropic.com/engineering/how-we-contain-claude",
+          intro: "Agent 能力越强，越不能只依靠模型服从提示词。Containment 从系统层控制它能访问什么、能向哪里发送数据、使用什么身份，以及失败时影响多大范围。",
+          sections: [
+            ["三类风险", ["用户可能误用能力，模型可能误解或执行错误，外部内容还可能通过 prompt injection 操纵 Agent。安全设计要同时考虑这三类失效。"]],
+            ["不同产品需要不同边界", ["网页对话、终端编码和桌面协作拥有不同工具与数据，因此不能共享一套简单权限模型。每个环境都要根据可访问资源、动作可逆性和用户预期设计边界。"]],
+            ["隔离与身份", ["虚拟机或沙箱限制文件和进程；egress control 限制数据外传；短期凭证和独立 Agent identity 限制账号权限。凭证不应直接暴露在模型上下文中。"]],
+            ["分层防御", ["输入检测、动作分类、权限控制、环境隔离、日志和人工检查点相互补充。任何一层都可能失败，所以不能把安全寄托在单个提示或分类器上。"]],
+            ["生产设计问题", ["上线前要回答：Agent 能看到哪些数据、能写入哪里、能访问哪些域名、用谁的身份、危险操作是否可逆、出现异常如何停止和追查。"]]
+          ],
+          terms: ["containment", "egress control", "agent identity", "VM", "credential isolation", "defense in depth"]
+        },
+        {
+          slug: "infrastructure-noise",
+          title: "Quantifying infrastructure noise in agentic coding evals",
+          zh: "量化 Agent 编程评测中的基础设施噪声",
+          category: "评测与验收",
+          level: "阶段 5 必读",
+          source: "https://www.anthropic.com/engineering/infrastructure-noise",
+          intro: "同一个 Agent 在不同 CPU、内存、时间限制或运行稳定性下，可能得到显著不同分数。评测结果不仅衡量模型，也衡量运行环境。",
+          sections: [
+            ["噪声从哪里来", ["构建速度、测试并发、依赖安装、磁盘和网络都会消耗任务时间。资源不足可能让正确方案超时，资源更多则可能掩盖低效行为。"]],
+            ["为什么排行榜会误导", ["如果不同实验没有固定环境或报告资源配置，分数差异无法直接归因于模型或提示词。少量任务和随机失败还会放大波动。"]],
+            ["如何得到可信结果", ["固定镜像、CPU、内存、超时和重试规则；重复运行并报告置信区间；保存失败类型和轨迹。比较方案时只改变一个主要变量。"]],
+            ["课程中的用法", ["验收产品时记录测试环境和版本。一次通过不能证明稳定，至少要重复关键流程，并区分功能错误、环境错误和偶发超时。"]]
+          ],
+          terms: ["infrastructure noise", "timeout", "resource configuration", "variance", "confidence interval"]
+        },
+        {
+          slug: "managed-agents",
+          title: "Scaling Managed Agents: Decoupling the brain from the hands",
+          zh: "扩展托管 Agent：把大脑与双手解耦",
+          category: "Agent 架构与长任务",
+          level: "选读摘要",
+          source: "https://www.anthropic.com/engineering/managed-agents",
+          intro: "托管长任务 Agent 需要把模型推理、执行环境和会话记录解耦。任何一层都可能中断，系统必须允许替换模型、恢复沙箱和重放状态。",
+          sections: [
+            ["Brain、hands 与 session", ["Brain 负责决策，hands 是执行命令和工具的环境，session 保存目标、动作和结果。把三者绑死会让故障恢复困难。"]],
+            ["可恢复性", ["执行环境失效后可以重建，模型会话中断后可以从日志继续，推理模型也可以升级或替换。稳定身份和持久状态比一条不断增长的聊天记录更重要。"]],
+            ["扩展时的治理", ["需要限制并发、资源、运行时间和网络权限，并为每个任务保留审计记录。托管不是放弃控制，而是把控制做成平台能力。"]]
+          ],
+          terms: ["managed agent", "brain", "hands", "session log", "recovery"]
+        },
+        {
+          slug: "multi-agent-research-system",
+          title: "How we built our multi-agent research system",
+          zh: "Anthropic 如何构建多 Agent 研究系统",
+          category: "Agent 架构与长任务",
+          level: "选读摘要",
+          source: "https://www.anthropic.com/engineering/multi-agent-research-system",
+          intro: "复杂研究问题往往需要探索许多相互独立的方向。系统使用主 Agent 制定研究计划、创建子 Agent 并汇总结果，让搜索宽度随任务动态增长。",
+          sections: [
+            ["Orchestrator-workers", ["主 Agent 根据问题拆出研究方向，子 Agent 独立搜索并返回带来源的结论。主 Agent负责发现缺口、追加任务和综合答案。"]],
+            ["为什么适合研究", ["不同来源和子问题可以并行探索，子任务之间依赖较弱。多 Agent 提高搜索覆盖面，但也增加 token、延迟和重复工作。"]],
+            ["引用和质量控制", ["子 Agent 必须保留来源，主 Agent 不能只接收无证据总结。系统还要控制任务数量、避免重复调查，并在信息足够时停止。"]]
+          ],
+          terms: ["multi-agent research", "orchestrator-workers", "citation", "parallel search"]
+        },
+        {
+          slug: "swe-bench-sonnet",
+          title: "Raising the bar on SWE-bench Verified with Claude 3.5 Sonnet",
+          zh: "用 Claude 3.5 Sonnet 提高 SWE-bench Verified 成绩",
+          category: "AI 编程工作流",
+          level: "选读摘要",
+          source: "https://www.anthropic.com/engineering/swe-bench-sonnet",
+          intro: "SWE-bench 的结果不仅来自模型，也来自外层 scaffold：模型如何查看仓库、编辑文件、运行测试并根据反馈继续工作。",
+          sections: [
+            ["最小但有效的工具", ["编码 Agent 需要浏览文件、搜索、编辑和执行命令。工具越多不一定越好，关键是接口清楚、结果高信号且错误可恢复。"]],
+            ["测试闭环", ["Agent 读取问题、定位代码、实现修复并运行测试。测试失败成为下一轮输入，直到满足验收或达到停止条件。"]],
+            ["解读基准成绩", ["比较模型时必须同时说明 scaffold、工具、提示词、资源和任务过滤方式。否则分数不能代表模型单独能力。"]]
+          ],
+          terms: ["SWE-bench Verified", "scaffold", "bash tool", "edit tool", "test feedback"]
+        },
+        {
+          slug: "writing-tools-for-agents",
+          title: "Writing effective tools for agents — with agents",
+          zh: "为 Agent 编写有效工具",
+          category: "工具与上下文",
+          level: "阶段 3 必读",
+          source: "https://www.anthropic.com/engineering/writing-tools-for-agents",
+          intro: "工具是确定性软件与非确定性 Agent 之间的契约。设计目标不是让人类觉得 API 优雅，而是让模型容易选择正确工具、填写正确参数并理解结果。",
+          sections: [
+            ["从 Agent 视角设计", ["工具名称和说明要直接表达何时使用、何时不要使用。参数名应具体，避免多个工具职责重叠。像为新同事写 docstring 一样说明输入、输出、边界和例子。"]],
+            ["减少不必要的格式负担", ["让模型输出复杂转义、精确行号或大段嵌套 JSON 会增加错误。选择接近模型常见文本模式、可逐步生成且容易校验的格式。"]],
+            ["返回高信号结果", ["工具结果应保留做决定所需的信息，同时避免把巨大原始数据塞回上下文。提供分页、过滤、稳定标识和明确错误消息。"]],
+            ["用 Eval 改进工具", ["收集 Agent 选错工具、参数错误和误解结果的真实任务，建立评测集。改变工具描述或接口后重复运行，比较成功率、步骤数和 token 使用。"]],
+            ["让 Agent 帮助设计工具", ["Agent 可以分析自己的失败轨迹、提出说明和参数改进，但最终接口仍要通过独立任务验证。直觉和一次演示都不够。"]]
+          ],
+          terms: ["tool contract", "tool description", "agent ergonomics", "poka-yoke", "tool eval"]
+        }
+      ];
+
+      const courseTargets = {
+        "AI-resistant-technical-evaluations": "stage-5",
+        "a-postmortem-of-three-recent-issues": "article-a-postmortem-of-three-recent-issues",
+        "advanced-tool-use": "stage-3",
+        "april-23-postmortem": "article-april-23-postmortem",
+        "building-c-compiler": "stage-2",
+        "building-effective-agents": "article-building-effective-agents",
+        "claude-code-auto-mode": "stage-4",
+        "claude-code-best-practices": "article-claude-code-best-practices",
+        "claude-code-sandboxing": "article-claude-code-sandboxing",
+        "claude-think-tool": "stage-3",
+        "code-execution-with-mcp": "stage-3",
+        "contextual-retrieval": "stage-3",
+        "demystifying-evals-for-ai-agents": "article-demystifying-evals-for-ai-agents",
+        "desktop-extensions": "stage-3",
+        "effective-context-engineering-for-ai-agents": "article-effective-context-engineering-for-ai-agents",
+        "effective-harnesses-for-long-running-agents": "article-effective-harnesses-for-long-running-agents",
+        "equipping-agents-for-the-real-world-with-agent-skills": "article-equipping-agents-for-the-real-world-with-agent-skills",
+        "eval-awareness-browsecomp": "stage-5",
+        "harness-design-long-running-apps": "stage-2",
+        "how-we-contain-claude": "article-how-we-contain-claude",
+        "infrastructure-noise": "article-infrastructure-noise",
+        "managed-agents": "stage-6",
+        "multi-agent-research-system": "stage-1",
+        "swe-bench-sonnet": "stage-5",
+        "writing-tools-for-agents": "article-writing-tools-for-agents"
+      };
+
+      const articleList = document.getElementById("articleList");
+      const articleSearch = document.getElementById("articleSearch");
+      const articleTitle = document.getElementById("articleTitle");
+      const originalTitle = document.getElementById("originalTitle");
+      const articleCategory = document.getElementById("articleCategory");
+      const articleLevel = document.getElementById("articleLevel");
+      const articleIntro = document.getElementById("articleIntro");
+      const articleSections = document.getElementById("articleSections");
+      const articleTerms = document.getElementById("articleTerms");
+      const courseLink = document.getElementById("courseLink");
+      const sourceLink = document.getElementById("sourceLink");
+      const previousArticle = document.getElementById("previousArticle");
+      const nextArticle = document.getElementById("nextArticle");
+      const articleView = document.getElementById("articleView");
+
+      const renderIndex = () => {
+        articleList.innerHTML = articles.map((article) => (
+          `<a href="#${article.slug}" data-search="${`${article.zh} ${article.title} ${article.category}`.toLowerCase()}">${article.zh}</a>`
+        )).join("");
+      };
+
+      const pagerMarkup = (label, article) => (
+        `<small>${label}</small><b>${article.zh}</b>`
+      );
+
+      const renderArticle = (slug, focus = false) => {
+        const index = Math.max(0, articles.findIndex((article) => article.slug === slug));
+        const article = articles[index];
+        document.title = `${article.zh} · Anthropic Engineering 中文精读摘要`;
+        articleCategory.textContent = article.category;
+        articleTitle.textContent = article.zh;
+        originalTitle.textContent = article.title;
+        articleLevel.textContent = article.level;
+        articleIntro.textContent = article.intro;
+        articleSections.innerHTML = article.sections.map(([heading, paragraphs]) => (
+          `<section class="article-section"><h2>${heading}</h2>${paragraphs.map((paragraph) => `<p>${paragraph}</p>`).join("")}</section>`
+        )).join("");
+        articleTerms.innerHTML = article.terms.map((term) => `<span>${term}</span>`).join("");
+        sourceLink.href = article.source;
+        courseLink.href = `../Anthropic工程博客学习路径课程.html#${courseTargets[article.slug]}`;
+        courseLink.textContent = article.level.includes("必读")
+          ? "返回当前文章并继续练习"
+          : "返回对应阶段继续学习";
+
+        const previous = articles[index - 1];
+        const next = articles[index + 1];
+        previousArticle.hidden = !previous;
+        nextArticle.hidden = !next;
+        if (previous) {
+          previousArticle.href = `#${previous.slug}`;
+          previousArticle.innerHTML = pagerMarkup("上一篇", previous);
+        }
+        if (next) {
+          nextArticle.href = `#${next.slug}`;
+          nextArticle.innerHTML = pagerMarkup("下一篇", next);
+        }
+
+        articleList.querySelectorAll("a").forEach((link) => {
+          if (link.getAttribute("href") === `#${article.slug}`) {
+            link.setAttribute("aria-current", "page");
+          } else {
+            link.removeAttribute("aria-current");
+          }
+        });
+
+        if (focus) {
+          articleView.scrollIntoView({ behavior: "smooth", block: "start" });
+          articleView.focus({ preventScroll: true });
+        }
+      };
+
+      articleSearch.addEventListener("input", () => {
+        const query = articleSearch.value.trim().toLowerCase();
+        articleList.querySelectorAll("a").forEach((link) => {
+          link.hidden = query && !link.dataset.search.includes(query);
+        });
+      });
+
+      window.addEventListener("hashchange", () => {
+        renderArticle(location.hash.slice(1), true);
+      });
+
+      if (embedded) {
+        window.addEventListener("keydown", (event) => {
+          if (event.key === "Escape") {
+            window.parent.postMessage({ type: "close-article-drawer" }, "*");
+          }
+        });
+      }
+
+      renderIndex();
+      renderArticle(location.hash.slice(1));
+    })();
+  </script>
+</body>
+</html>
