@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Anthropic Engineering 中文精读摘要</title>
+  <link rel="stylesheet" href="../assets/reader.css" />
+</head>
+<body>
+  <a class="skip-link" href="#articleView">跳到精读</a>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="../index.html">Anthropic Engineering 中文精读摘要</a>
+      <nav class="top-actions" aria-label="页面操作">
+        <a href="classification.html">文章分类</a>
+        <a href="../index.html">返回课程</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="reader-shell">
+    <aside class="article-index" aria-label="精读目录">
+      <p class="index-label">25 篇中文精读摘要</p>
+      <input class="search" id="articleSearch" type="search" placeholder="搜索文章或主题" aria-label="搜索精读摘要" />
+      <nav class="article-list" id="articleList"></nav>
+    </aside>
+
+    <main class="article-view" id="articleView" tabindex="-1">
+      <div class="translation-note">
+        这是课程团队基于全文整理的非官方中文精读摘要，覆盖核心论点、部分关键案例和英文术语，但不是逐段或完整翻译。需要完整论证、数字、方法、引用或边界条件时，请打开英文原文核对。
+      </div>
+
+      <article>
+        <header class="article-head">
+          <p class="eyebrow" id="articleCategory"></p>
+          <h1 id="articleTitle"></h1>
+          <p class="original-title" id="originalTitle"></p>
+          <div class="meta-row">
+            <span class="tag" id="articleLevel"></span>
+            <span class="tag">课程精读摘要 · 非官方</span>
+          </div>
+        </header>
+
+        <p class="article-intro" id="articleIntro"></p>
+        <div id="articleSections"></div>
+
+        <section class="terms">
+          <h2>建议保留的英文术语</h2>
+          <div class="term-list" id="articleTerms"></div>
+        </section>
+
+        <div class="article-actions">
+          <a class="button primary" id="courseLink" href="../index.html">读完后返回课程</a>
+          <a class="button" id="sourceLink" href="#" target="_blank" rel="noreferrer">核对英文来源</a>
+        </div>
+
+        <nav class="article-pager" aria-label="上一篇和下一篇">
+          <a class="pager-link" id="previousArticle" href="#"></a>
+          <a class="pager-link" id="nextArticle" href="#"></a>
+        </nav>
+      </article>
+    </main>
+  </div>
+
+  <script src="../assets/reader.js"></script>
+</body>
+</html>

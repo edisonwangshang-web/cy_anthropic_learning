@@ -8,8 +8,8 @@
 
 当前项目包含两条相互支持的主线：
 
-1. `AI时代非程序员全栈产品课程大纲.md`：正式课程框架。
-2. `Anthropic工程博客学习路径课程.html`：正式产品课的工程判断先修课，把 Anthropic Engineering 文章转化成可执行的判断力训练。
+1. `content/curriculum/fullstack-course-outline.zh-CN.md`：正式课程框架。
+2. `course/index.html`：正式产品课的工程判断先修课，把 Anthropic Engineering 文章转化成可执行的判断力训练。
 
 必须区分两条线：完成六阶段先修课不等于完成生产产品；正式产品课仍需逐步完成真实数据库、后端、客户端、权限、部署、监控、备份与恢复。
 
@@ -17,10 +17,11 @@
 
 1. `AGENTS.md`
 2. `MEMORY.md`
-3. `agent/memory/project_context.md`
-4. `agent/memory/progress.md`
-5. `agent/memory/decisions.md`
-6. 与当前任务相关的角色说明和文章映射
+3. `docs/architecture.md`
+4. `agent/memory/project_context.md`
+5. `agent/memory/progress.md`
+6. `agent/memory/decisions.md`
+7. 与当前任务相关的角色说明和文章映射
 
 不得只根据聊天记录猜测项目状态。
 
@@ -34,18 +35,20 @@
 - 生产可用的定义必须覆盖真实数据、权限、安全、部署、日志、监控、备份和回滚。
 - AI 可以生成第一版，但不得作为自己工作的唯一验收者。
 - 不复制 OpenAI 或 Anthropic 的 Logo、品牌资产和容易造成官方误认的内容。
-- `anthropic-engineering-crawl/` 中的原始全文和抓取摘要属于来源档案，除修复事实错误外不要重写。
+- `content/sources/anthropic/` 中的原始全文和抓取摘要属于来源档案，除修复事实错误外不要重写。
 
 ## 文件职责
 
 | 文件或目录 | 职责 |
 |---|---|
-| `AI时代非程序员全栈产品课程大纲.md` | 总课程设计和课题结构 |
-| `Anthropic工程博客学习路径课程.html` | 学员直接使用的学习工作台 |
-| `教育审查与优化报告.md` | 逐章、逐文章、逐文件的教育审查结论和未解决风险 |
-| `anthropic-engineering-crawl/anthropic_engineering_articles_classification.html` | 25 篇文章的可搜索分类报告 |
-| `anthropic-engineering-crawl/anthropic_engineering_articles_zh.html` | 25 篇文章的非官方中文精读摘要阅读器 |
-| `anthropic-engineering-crawl/*.md`、`*.json` | 原始抓取、全文和分类依据 |
+| `course/` | 学员直接使用的静态课程应用 |
+| `course/index.html` | 工程判断先修课主页面 |
+| `course/articles/` | 文章分类和中文精读摘要阅读器 |
+| `course/assets/` | 页面样式、交互和文章摘要数据 |
+| `content/curriculum/` | 总课程设计和教育审查 |
+| `content/sources/anthropic/` | 原始抓取、全文和分类依据 |
+| `materials/` | 学员工作区、阶段模板和下载压缩包 |
+| `docs/architecture.md` | 目录边界、依赖方向和维护规则 |
 | `agent/memory/` | 跨会话长期记忆 |
 | `agent/roles/` | 不同 Agent 的职责和交接条件 |
 | `agent/templates/` | 课程单元、任务和决策记录模板 |
@@ -69,7 +72,8 @@
 
 ## 前端改动规则
 
-- 保持单文件静态 HTML，可直接通过本地文件打开。
+- 保持无构建静态应用，可直接通过本地文件打开。
+- HTML、CSS 和 JavaScript 分离；可运行文件只放在 `course/`。
 - 不引入远程 JavaScript、字体、图标或分析脚本。
 - 学习状态只保存在浏览器本地，不上传。
 - 所有主要操作必须有清晰文本、键盘焦点和移动端布局。
@@ -82,6 +86,7 @@
 
 ```bash
 python3 scripts/validate_project.py
+node scripts/check-js-syntax.mjs
 ```
 
 同时确认：

@@ -1,0 +1,1622 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="面向零基础学习者的 Anthropic Engineering 工程判断先修课。" />
+  <title>Anthropic Engineering 工程判断先修课</title>
+  <link rel="stylesheet" href="assets/course.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main-content">跳到主要内容</a>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#start">
+        Anthropic Engineering
+        <span>工程判断先修课</span>
+      </a>
+      <div class="top-actions">
+        <a href="articles/classification.html">文章分类</a>
+        <a class="primary-link" id="topContinue" href="#stage-1">继续学习</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="app-shell">
+    <nav class="side-nav" aria-label="课程目录">
+      <p class="side-label">课程目录</p>
+      <a href="#start">开始这里</a>
+      <a href="#prepare">开课设置</a>
+      <a href="#document-map">文档地图</a>
+      <a href="#learning-method">学习方法</a>
+      <a href="#path">六阶段路径</a>
+      <a href="#stage-1">01 Agent 基础</a>
+      <a href="#stage-2">02 AI 编程工作流</a>
+      <a href="#stage-3">03 工具与上下文</a>
+      <a href="#stage-4">04 安全与权限</a>
+      <a href="#stage-5">05 评测与验收</a>
+      <a href="#stage-6">06 生产治理</a>
+      <div class="side-divider"></div>
+      <a href="#schedule">四周安排</a>
+      <a href="#recovery">卡住怎么办</a>
+      <a href="#capstone">结课任务</a>
+      <a href="#fullstack-bridge">完整产品课</a>
+      <a href="#resources">学习资料</a>
+    </nav>
+
+    <main id="main-content">
+      <section class="course-intro" id="start">
+        <p class="eyebrow">完整产品课的先修课 · 不要求编程基础 · 约 20 至 24 小时</p>
+        <h1>先学会判断，再指挥 AI 做工程</h1>
+        <p class="lede">
+          这门课把 25 篇 Anthropic Engineering 文章整理成一条可执行路径。
+          你会先建立规格、工具、安全、评测和故障判断，再进入数据库、后端、客户端和部署实操。
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" id="heroContinue" href="#stage-1">从下一项开始</a>
+          <a class="button" href="articles/classification.html">查看可读分类报告</a>
+        </div>
+
+        <div class="course-positioning">
+          <strong>先讲清楚：完成本页，不等于已经完成生产产品</strong>
+          <p>本页交付的是“工程判断包”，作用是让你能指挥、检查和约束 AI。真正的全栈产品还必须继续完成数据库、API、客户端、登录权限、部署、监控、备份和真实用户验证。</p>
+        </div>
+
+        <div class="mobile-progress" aria-label="移动端学习进度">
+          <div class="mobile-progress-line">
+            <strong>课程进度</strong>
+            <span id="mobileProgressValue">0%</span>
+          </div>
+          <div class="progress-track" id="mobileProgressTrack" role="progressbar" aria-label="课程进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <div class="progress-fill" id="mobileProgressFill"></div>
+          </div>
+        </div>
+
+        <div class="start-grid" aria-label="使用方法">
+          <article class="start-step">
+            <span class="step-number">01</span>
+            <h2>只看当前一步</h2>
+            <p>“继续学习”会带你到第一项未完成任务，不需要自己寻找进度。</p>
+          </article>
+          <article class="start-step">
+            <span class="step-number">02</span>
+            <h2>文章就在课程里</h2>
+            <p>中文精读摘要从右侧抽屉打开，关闭后仍停留在当前导读，可以直接继续阅读问题和练习。摘要不替代英文原文；涉及数字、方法和证据时必须回到原文核对。</p>
+          </article>
+          <article class="start-step">
+            <span class="step-number">03</span>
+            <h2>通过再前进</h2>
+            <p>即时回忆、项目文档和验收证据共同决定进度，不把“浏览过”当学会。</p>
+          </article>
+        </div>
+
+        <div class="notice warning">
+          <strong>先说明边界：</strong>
+          这套路径教你理解和管理 AI 工程，不会仅凭读完文章就让你变成程序员。
+          真正做产品时，仍要配合具体技术栈课程、真实项目和安全审查。
+        </div>
+      </section>
+
+      <section id="prepare">
+        <div class="section-head">
+          <p class="eyebrow">开始前约 5 分钟</p>
+          <h2>课程已经替你准备好开课内容</h2>
+          <p>这里不是把准备工作丢给你。默认案例、学习目录和 AI 助教提示词都已提供；你只需按顺序确认五个动作。</p>
+        </div>
+
+        <div class="setup-defaults" aria-label="课程已准备的内容">
+          <div class="setup-default">
+            <b>贯穿案例已经选好</b>
+            <span>统一使用“预约管理平台”，后面六个阶段不会反复换题。</span>
+          </div>
+          <div class="setup-default">
+            <b>学习工作区已经打包</b>
+            <span>包含 notes、outputs、questions、project 和 prompts 五个目录。</span>
+          </div>
+          <div class="setup-default">
+            <b>AI 助教规则已经写好</b>
+            <span>复制后直接发送给 AI，它会解释术语、检查产出，但不会替你宣布通过。</span>
+          </div>
+        </div>
+
+        <div class="check-list" id="prepChecklist">
+          <div class="check-item setup-item">
+            <span class="setup-index" aria-hidden="true">1</span>
+            <span class="setup-copy">
+              <strong>确认你已经打开一个 AI 对话工具</strong>
+              <span>能进行当前这样的对话即可，不限定品牌，也不要求额外购买工具。</span>
+            </span>
+            <button class="button setup-action" type="button" data-complete-progress="prep-1">我已经打开</button>
+            <label class="setup-confirm">
+              <input type="checkbox" data-progress="prep-1" />
+              <span>已确认</span>
+            </label>
+          </div>
+          <div class="check-item setup-item">
+            <span class="setup-index" aria-hidden="true">2</span>
+            <span class="setup-copy">
+              <strong>下载并解压课程学习工作区</strong>
+              <span>目录和模板已经建好，你不需要自己设计文件结构。</span>
+            </span>
+            <a class="button setup-action" href="../materials/learner-workspace.zip" download data-complete-progress="prep-2">下载工作区</a>
+            <label class="setup-confirm">
+              <input type="checkbox" data-progress="prep-2" />
+              <span>已完成</span>
+            </label>
+          </div>
+          <div class="check-item setup-item">
+            <span class="setup-index" aria-hidden="true">3</span>
+            <span class="setup-copy">
+              <strong>采用默认案例：预约管理平台</strong>
+              <span>后续流程图、规格、权限、测试和故障练习都围绕这个产品完成。</span>
+            </span>
+            <button class="button setup-action" type="button" data-complete-progress="prep-3">使用默认案例</button>
+            <label class="setup-confirm">
+              <input type="checkbox" data-progress="prep-3" />
+              <span>已确认</span>
+            </label>
+          </div>
+          <div class="check-item setup-item">
+            <span class="setup-index" aria-hidden="true">4</span>
+            <span class="setup-copy">
+              <strong>把开课提示词发送给 AI</strong>
+              <span>提示词已写好。复制、发送后，AI 就会按本课规则陪你完成学习。</span>
+            </span>
+            <button class="button setup-action" type="button" data-copy-target="prepAssistantPrompt" data-complete-progress="prep-4">复制开课提示词</button>
+            <label class="setup-confirm">
+              <input type="checkbox" data-progress="prep-4" />
+              <span>已发送</span>
+            </label>
+          </div>
+          <div class="check-item setup-item">
+            <span class="setup-index" aria-hidden="true">5</span>
+            <span class="setup-copy">
+              <strong>先看学习方法和文档地图</strong>
+              <span>理解每章为什么要先判断、再阅读、再回忆和迁移，避免直接跳到文章浏览。</span>
+            </span>
+            <a class="button setup-action" href="#document-map">查看学习方法</a>
+            <label class="setup-confirm">
+              <input type="checkbox" data-progress="prep-5" disabled />
+              <span>在学习方法末尾完成</span>
+            </label>
+          </div>
+        </div>
+        <pre id="prepAssistantPrompt" hidden>你是我的 AI 工程课程学习助教。我没有编程背景，本先修课的贯穿案例是“预约管理平台”。
+
+接下来请遵守以下规则：
+1. 遇到英文或工程术语，先用生活语言和预约平台案例解释，再给出准确术语。
+2. 每次只告诉我当前一步，不要一次塞给我整个项目。
+3. 每章开始先问我读前判断题；等我作答后再解释，不要替我跳过思考。
+4. 阅读中文精读摘要后先让我用自己的话解释，再追问一道迁移题；我没有尝试前不要直接给答案。
+5. 先带我补全“引导练习”，再让我独立完成阶段模板，逐步减少提示。
+6. 检查产出时必须指出缺少的证据、边界、失败场景和风险；“看起来合理”不能算通过。
+7. 只有能给出可验证结果，并达到评分量规要求，才能宣布当前阶段通过。
+8. 将学习内容分别整理到 notes、outputs、questions、project 对应文件中，并提醒我在 24 至 48 小时后完成延迟复习。
+9. 始终说明这六章是工程判断先修课，不等同于完成数据库、后端、客户端和部署。
+
+现在先确认我已经下载课程学习工作区，并告诉我进入阶段 1 后只需要完成的第一件事。</pre>
+        <div class="prepare-footer">
+          <p class="ready-state" id="readyState" aria-live="polite">请从第 1 项开始，课程已经给出每一步需要的内容。</p>
+          <a class="button primary" id="prepContinue" href="#stage-1" hidden>进入阶段 1</a>
+        </div>
+      </section>
+
+      <section id="document-map">
+        <div class="section-head">
+          <p class="eyebrow">输入与产出对齐</p>
+          <h2>文档地图</h2>
+          <p>每个阶段都从指定文章输入知识，再转化成可检查的项目文档。点击“进入阶段”即可在课程页内查看文章导读。</p>
+        </div>
+
+        <div class="document-map">
+          <div class="document-row">
+            <div class="document-stage">01 Agent 基础<a href="#stage-1">进入阶段</a></div>
+            <div class="document-cell"><b>阅读输入</b><span>Building effective agents；Effective context engineering</span></div>
+            <div class="document-cell"><b>项目产出</b><span>AI 产品执行流程图；核心概念说明</span></div>
+          </div>
+          <div class="document-row">
+            <div class="document-stage">02 编程工作流<a href="#stage-2">进入阶段</a></div>
+            <div class="document-cell"><b>阅读输入</b><span>Best practices for Claude Code；Effective harnesses</span></div>
+            <div class="document-cell"><b>项目产出</b><span>产品规格；feature list；progress log；验收标准</span></div>
+          </div>
+          <div class="document-row">
+            <div class="document-stage">03 工具与上下文<a href="#stage-3">进入阶段</a></div>
+            <div class="document-cell"><b>阅读输入</b><span>Writing effective tools；Agent Skills</span></div>
+            <div class="document-cell"><b>项目产出</b><span>工具选型表；最小上下文包；数据暴露清单</span></div>
+          </div>
+          <div class="document-row">
+            <div class="document-stage">04 安全与权限<a href="#stage-4">进入阶段</a></div>
+            <div class="document-cell"><b>阅读输入</b><span>How we contain Claude；Beyond permission prompts</span></div>
+            <div class="document-cell"><b>项目产出</b><span>三环境隔离图；权限矩阵；安全红线</span></div>
+          </div>
+          <div class="document-row">
+            <div class="document-stage">05 评测与验收<a href="#stage-5">进入阶段</a></div>
+            <div class="document-cell"><b>阅读输入</b><span>Demystifying evals；Infrastructure noise</span></div>
+            <div class="document-cell"><b>项目产出</b><span>测试用例集；验收评分表；证据留存规则</span></div>
+          </div>
+          <div class="document-row">
+            <div class="document-stage">06 生产治理<a href="#stage-6">进入阶段</a></div>
+            <div class="document-cell"><b>阅读输入</b><span>Three recent issues；Claude Code quality reports</span></div>
+            <div class="document-cell"><b>项目产出</b><span>故障处理手册；事故复盘模板；最小监控要求</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="learning-method">
+        <div class="section-head">
+          <p class="eyebrow">按人类学习机制设计</p>
+          <h2>每章都用同一套六环节学习循环</h2>
+          <p>零基础学习者最怕一次接收太多新概念，也最容易把“读着熟悉”误当成“已经会用”。因此课程不要求你连续读文章，而是让注意、理解、回忆、反馈和迁移依次发生。</p>
+        </div>
+
+        <div class="learning-model" aria-label="六环节学习循环">
+          <div class="learning-model-row">
+            <span class="learning-model-step">01 先猜一下</span>
+            <div><b>用一个真实问题唤起已有经验</b><p>不要求答对。先暴露你的直觉，阅读时大脑才知道应该寻找什么。</p></div>
+            <p>你会看到：每章开头只有一道判断题，不先讲术语。</p>
+          </div>
+          <div class="learning-model-row">
+            <span class="learning-model-step">02 分块理解</span>
+            <div><b>一次只建立 5 个核心概念</b><p>先看概念关系，再进入文章，减少新术语同时挤进工作记忆。</p></div>
+            <p>你会看到：每章固定 5 个概念，每个概念只回答“是什么、为什么重要”。</p>
+          </div>
+          <div class="learning-model-row">
+            <span class="learning-model-step">03 带题阅读</span>
+            <div><b>导读先给论证地图和阅读问题</b><p>文章通过右侧抽屉打开，主线仍留在原位；阅读时只追踪关键证据。</p></div>
+            <p>你会看到：每篇文章都有阅读前判断、类比、常见误区和读后解释。</p>
+          </div>
+          <div class="learning-model-row">
+            <span class="learning-model-step">04 回忆反馈</span>
+            <div><b>合上材料，先从记忆里取一次</b><p>即时回忆会给反馈，帮助你发现“看懂但说不出”的知识缺口。</p></div>
+            <p>你会看到：每章一道必须作答的情境判断题。</p>
+          </div>
+          <div class="learning-model-row">
+            <span class="learning-model-step">05 示例迁移</span>
+            <div><b>先看完整示例，再补全一部分，最后独立做</b><p>小白先获得判断框架，再通过引导练习逐步减少辅助，而不是面对空白页猜做法。</p></div>
+            <p>你会看到：完成示例、引导练习、自我解释、阶段模板和独立项目产出。</p>
+          </div>
+          <div class="learning-model-row">
+            <span class="learning-model-step">06 间隔巩固</span>
+            <div><b>隔一天再回忆，并在下一章重新使用</b><p>学习结束不是最后一次看材料；间隔后的提取才检验知识能否保留。</p></div>
+            <p>你会看到：每章末尾都有“明天不看笔记再做”的短任务。</p>
+          </div>
+        </div>
+
+        <details class="research-note">
+          <summary>这套学习方法的研究依据</summary>
+          <div class="research-body">
+            <p><b>控制认知负荷：</b>新知识受有限工作记忆约束，因此先分块、给结构，再逐步组合复杂任务。</p>
+            <p><b>检索与反馈：</b>主动回忆通常比反复阅读更有利于长期保持，及时反馈能纠正错误理解。</p>
+            <p><b>示例到独立：</b>零基础学习者先看完成示例、解释理由，再逐渐承担更多步骤；已有经验增加后再减少提示。</p>
+            <p><b>生成与间隔：</b>用自己的话解释、亲自生成答案并隔时复习，目的是让知识从“眼熟”变成可提取、可迁移。</p>
+            <p><b>研究来源：</b><a href="https://link.springer.com/article/10.1007/s10648-019-09465-5">认知负荷与教学设计综述</a>、<a href="https://pubmed.ncbi.nlm.nih.gov/20951630/">检索练习综述</a>、<a href="https://doi.org/10.1207/s15516709cog1302_1">自我解释研究</a>、<a href="https://doi.org/10.1080/00461520.2014.965823">ICAP 学习参与框架</a>、<a href="https://pubmed.ncbi.nlm.nih.gov/28344365/">计算机化支架元分析</a>、<a href="https://pubmed.ncbi.nlm.nih.gov/32038429/">反馈元分析</a>、<a href="https://pubmed.ncbi.nlm.nih.gov/28676769/">间隔学习综述</a>。</p>
+          </div>
+        </details>
+        <div class="prepare-footer">
+          <p class="ready-state">先带着问题学习，再用项目证据验收；不要把“读完”当作“学会”。</p>
+          <a class="button primary" href="#stage-1" data-complete-progress="prep-5">理解方法，进入阶段 1</a>
+        </div>
+      </section>
+
+      <section id="path">
+        <div class="section-head">
+          <p class="eyebrow">核心路径</p>
+          <h2>六阶段，从理解到生产治理</h2>
+          <p>每阶段约 2 至 4 小时。先读必读文章，选读只在你对该主题有兴趣或项目需要时展开。</p>
+        </div>
+
+        <div class="path-list">
+          <article class="learning-stage" id="stage-1" data-stage="1">
+            <header class="stage-header">
+              <div class="stage-index">01</div>
+              <div>
+                <h3>建立 Agent 工程世界观</h3>
+                <p>理解 AI 不是“一次回答”，而是在工具、上下文和反馈中完成任务的系统。</p>
+              </div>
+              <p class="stage-time">约 2.5 小时</p>
+            </header>
+            <div class="stage-body">
+              <div class="lesson-loop" aria-label="阶段一学习顺序">
+                <span>1 先猜一下</span><span>2 导读与精读摘要</span><span>3 回忆检查</span>
+                <span>4 拆解示例</span><span>5 自己解释</span><span>6 项目迁移</span>
+              </div>
+              <div class="chapter-prequestion">
+                <b>读前先判断，不要求答对</b>
+                <p>预约平台要处理“用户说下周二下午都可以”。你会让 AI 自主完成查询、校验、写入和通知全部步骤，还是只让它解析用户语言？先写下选择和理由，学完后再回来修改。</p>
+                <label class="reflection-field"><span>写下学习前的判断</span><textarea data-reflection="stage-1-before" placeholder="我会选择……，因为……"></textarea></label>
+                <span class="save-note">内容自动保存在当前浏览器。</span>
+              </div>
+              <div class="concept-sequence" aria-label="阶段一五个核心内容">
+                <h4>本章 5 个核心内容</h4>
+                <div class="concept-item"><span>1</span><div><b>Workflow 与 Agent</b><p>Workflow 按预设路径执行；Agent 会根据环境和结果决定下一步。自主程度不同，风险和验证成本也不同。</p></div></div>
+                <div class="concept-item"><span>2</span><div><b>复杂度阶梯</b><p>从一次模型调用、固定流程到自主 Agent 逐级增加复杂度，只在简单方案无法完成任务时升级。</p></div></div>
+                <div class="concept-item"><span>3</span><div><b>增强模型</b><p>模型通过检索、工具和记忆接触外部世界；这些能力决定它能做什么，也决定它可能造成什么影响。</p></div></div>
+                <div class="concept-item"><span>4</span><div><b>上下文是注意预算</b><p>上下文不是资料仓库。信息越多不一定越好，旧信息、重复信息和无关内容都会干扰当前判断。</p></div></div>
+                <div class="concept-item"><span>5</span><div><b>反馈与停止条件</b><p>每一步都要有工具结果、测试或人工确认作为反馈，并明确何时成功、何时停止、何时交给人。</p></div></div>
+              </div>
+              <div class="content-grid">
+                <div class="content-block">
+                  <h4>学完你要会</h4>
+                  <ul>
+                    <li>用自己的话区分 workflow 和 agent。</li>
+                    <li>解释为什么越复杂的系统越需要小步骤和反馈。</li>
+                    <li>知道上下文会变长、变旧，也会让模型判断变差。</li>
+                  </ul>
+                </div>
+                <div class="content-block">
+                  <h4>本阶段阅读</h4>
+                  <ul class="reading-links">
+                    <li class="article-unit" id="article-building-effective-agents">
+                      <details>
+                        <summary><span class="reading-type">必读</span><span class="article-title">Building effective agents</span></summary>
+                        <div class="article-guide">
+                          <p>为什么读：先建立最小 Agent 架构观，避免把 AI 产品理解成一次性提示词。</p>
+                          <div class="guide-grid">
+                            <div class="guide-block">
+                              <b>阅读前先判断</b>
+                              <p>固定规则和顺序已经清楚的任务，是否仍需要一个全自主 Agent？把你的答案保留到读完后比较。</p>
+                            </div>
+                            <div class="guide-block">
+                              <b>论证地图</b>
+                              <ul><li>先区分固定路径与自主决策。</li><li>再按任务复杂度选择组合模式。</li><li>最后用环境反馈约束每一步。</li></ul>
+                            </div>
+                            <div class="guide-block">
+                              <b>用类比理解</b>
+                              <p>Workflow 像餐厅标准出餐流程；Agent 像主厨根据库存和客人要求临场调整，但食品安全规则仍不能由它改写。</p>
+                            </div>
+                            <div class="guide-block">
+                              <b>最容易误解</b>
+                              <p>Agent 并不天然比 Workflow 高级。自主性越高，需要处理的不确定性、失败路径和验证成本越多。</p>
+                            </div>
+                            <div class="guide-block">
+                              <b>读完自己解释</b>
+                              <p>选预约平台中的一个步骤，说明它该用固定流程还是 Agent 判断，并给出一个可观察的反馈信号。</p>
+                            </div>
+                          </div>
+                          <div class="guide-actions">
+                            <a class="original-link" href="articles/reader.html#building-effective-agents">阅读中文精读摘要</a>
+                            <label class="article-complete check-item">
+                              <input type="checkbox" data-progress="article-building-effective-agents" />
+                              <span><strong>已完成导读、中文精读摘要和阅读问题</strong></span>
+                            </label>
+                          </div>
+                        </div>
+                      </details>
+                    </li>
+                    <li class="article-unit" id="article-effective-context-engineering-for-ai-agents">
+                      <details>
+                        <summary><span class="reading-type">必读</span><span class="article-title">Effective context engineering for AI agents</span></summary>
+                        <div class="article-guide">
+                          <p>为什么读：理解上下文不是越多越好，而是需要持续选择、压缩和外部记录。</p>
+                          <div class="guide-grid">
+                            <div class="guide-block">
+                              <b>阅读前先判断</b>
+                              <p>如果下一次只能给 AI 五类信息，你会保留哪些？先写答案，再用文章修正你的清单。</p>
+                            </div>
+                            <div class="guide-block">
+                              <b>论证地图</b>
+                              <ul><li>上下文窗口是有限注意空间。</li><li>信息积累会产生遗忘和干扰。</li><li>压缩、外部笔记和按需加载让高信号内容留下。</li></ul>
+                            </div>
+                            <div class="guide-block">
+                              <b>用类比理解</b>
+                              <p>上下文像正在工作的桌面：只摆当前任务需要的图纸和工具；把整个仓库搬上桌，反而找不到关键物品。</p>
+                            </div>
+                            <div class="guide-block">
+                              <b>最容易误解</b>
+                              <p>更长的提示词不等于更好的回答。关键是保留当前决策需要的事实、约束、状态和失败记录。</p>
+                            </div>
+                            <div class="guide-block">
+                              <b>读完自己解释</b>
+                              <p>从现有项目资料中删掉一类低信号内容，并说明为什么删除后 AI 反而更容易做出正确判断。</p>
+                            </div>
+                          </div>
+                          <div class="guide-actions">
+                            <a class="original-link" href="articles/reader.html#effective-context-engineering-for-ai-agents">阅读中文精读摘要</a>
+                            <label class="article-complete check-item">
+                              <input type="checkbox" data-progress="article-context-engineering" />
+                              <span><strong>已完成导读、中文精读摘要和阅读问题</strong></span>
+                            </label>
+                          </div>
+                        </div>
+                      </details>
+                    </li>
+                    <li class="optional">
+                      <a href="articles/reader.html#multi-agent-research-system">How we built our multi-agent research system</a>
+                      <small>当任务可以并行探索大量信息时，再学习多 Agent 编排。</small>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <fieldset class="knowledge-check" data-quiz="stage-1" data-answer="workflow">
+                <legend>即时回忆：先回答再继续</legend>
+                <p>一个退款流程的规则和顺序完全固定，只需要 AI 帮忙分类退款原因。最合适的基础设计是什么？</p>
+                <div class="quiz-options">
+                  <label class="quiz-option"><input type="radio" name="quiz-stage-1" value="agent" />让一个全自主 Agent 决定退款规则和全部步骤</label>
+                  <label class="quiz-option"><input type="radio" name="quiz-stage-1" value="workflow" />固定 Workflow 执行退款，只把原因分类交给 AI</label>
+                  <label class="quiz-option"><input type="radio" name="quiz-stage-1" value="prompt" />把全部用户记录放进一个提示词，一次生成结果</label>
+                </div>
+                <button class="quiz-submit" type="button">检查答案</button>
+                <p class="quiz-feedback" aria-live="polite"></p>
+                <label class="mastery-check check-item">
+                  <input type="checkbox" data-progress="quiz-stage-1" disabled />
+                  <span><strong>通过阶段一即时回忆</strong></span>
+                </label>
+              </fieldset>
+
+              <details class="worked-example">
+                <summary>先看一个完成示例：预约平台流程</summary>
+                <div class="example-body">
+                  <p><b>固定 Workflow：</b>检查登录状态 → 查询时段 → 校验预约规则 → 写入数据库 → 发送确认。</p>
+                  <p><b>可交给 AI 的判断：</b>把用户自然语言“下周二下午都可以”解析成候选时间；输出必须再经过日期和营业时间校验。</p>
+                  <p><b>为什么这样设计：</b>权限、库存和写入数据必须确定；自然语言理解允许灵活性，但结果不能直接落库。</p>
+                </div>
+              </details>
+
+              <details class="guided-practice">
+                <summary>补全练习：修改预约时间</summary>
+                <div class="guided-body">
+                  <p>用户说“把明天下午的预约改到周五上午”。请先模仿示例，不要直接设计完整系统。</p>
+                  <ol><li>圈出必须固定执行的两个步骤。</li><li>指出只适合交给 AI 理解的一个步骤。</li><li>为 AI 输出补一个确定性校验。</li></ol>
+                  <label class="reflection-field"><span>补全你的答案</span><textarea data-reflection="stage-1-guided" placeholder="固定步骤：……&#10;AI 判断：……&#10;校验：……"></textarea></label>
+                </div>
+              </details>
+
+              <div class="self-explain">
+                <b>不要看答案，用自己的话讲 60 秒</b>
+                <p>为什么“自然语言解析”可以交给 AI，而“权限校验和写入数据库”应该留在固定流程？必须同时说出灵活性、风险和反馈信号。</p>
+                <label class="reflection-field"><span>说完后写下三句话</span><textarea data-reflection="stage-1-explain" placeholder="灵活性：……&#10;风险：……&#10;反馈信号：……"></textarea></label>
+              </div>
+
+              <div class="workflow" aria-label="阶段一学习动作">
+                <div class="workflow-step"><b>读</b><span>先看标题、小标题和图，再阅读全文。</span></div>
+                <div class="workflow-step"><b>问</b><span>让 AI 用“餐厅后厨”类比 workflow 与 agent。</span></div>
+                <div class="workflow-step"><b>做</b><span>画出贯穿案例从用户请求到结果的流程图。</span></div>
+                <div class="workflow-step"><b>验</b><span>指出其中哪些步骤固定、哪些需要 AI 自主判断。</span></div>
+              </div>
+
+              <details>
+                <summary>给 AI 的阶段辅导提示词</summary>
+                <div class="prompt-wrap">
+                  <pre class="prompt" id="prompt-1">你是我的零基础 AI 工程助教。请基于《Building effective agents》的核心观点，用日常生活类比解释 workflow、agent、tool、context 四个概念。每解释一个概念后问我一个判断题，不要直接给答案。最后请用我的案例“[填写你的产品]”帮我画出文字版执行流程，并指出哪些环节应该固定、哪些环节可以交给 AI 判断。</pre>
+                  <button class="copy-button" type="button" data-copy-target="prompt-1">复制提示词</button>
+                </div>
+              </details>
+
+              <div class="check-list">
+                <label class="check-item">
+                  <input type="checkbox" data-progress="stage-1-map" />
+                  <span><strong>完成产品执行流程图</strong><span>至少包含用户、客户端、后端、数据、AI、结果六个节点。</span></span>
+                </label>
+                <label class="check-item">
+                  <input type="checkbox" data-progress="stage-1-explain" />
+                  <span><strong>能口头解释四个核心概念</strong><span>不看笔记讲清 workflow、agent、tool、context。</span></span>
+                </label>
+              </div>
+
+              <div class="spaced-review">
+                <b>明天再做：不看笔记画一次</b>
+                <p>从用户请求开始，画出 Workflow、Agent、Tool、Context 和反馈之间的关系，并给每条箭头写一句含义。</p>
+                <small>先凭记忆完成，再回来看遗漏；不要把“重新阅读”放在“尝试回忆”之前。</small>
+                <label class="review-confirm"><input type="checkbox" data-review="stage-1-review" />我已在至少 24 小时后完成</label>
+              </div>
+
+              <div class="stage-footer">
+                <div class="stage-output">
+                  <b>阶段产出</b>
+                  <span>一张 AI 产品执行流程图 + 一页概念说明。</span>
+                </div>
+                <a class="template-link" href="../materials/learner-workspace/outputs/阶段1-Agent执行流程与概念说明.md" download>下载阶段模板</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="learning-stage" id="stage-2" data-stage="2">
+            <header class="stage-header">
+              <div class="stage-index">02</div>
+              <div>
+                <h3>学习 AI 编程工作流</h3>
+                <p>把“帮我写一个应用”改造成有规格、有步骤、有验证的工程任务。</p>
+              </div>
+              <p class="stage-time">约 3.5 小时</p>
+            </header>
+            <div class="stage-body">
+              <div class="lesson-loop" aria-label="阶段二学习顺序">
+                <span>1 先猜一下</span><span>2 导读与精读摘要</span><span>3 回忆检查</span>
+                <span>4 拆解示例</span><span>5 自己解释</span><span>6 项目迁移</span>
+              </div>
+              <div class="chapter-prequestion">
+                <b>读前先判断，不要求答对</b>
+                <p>AI 回复“取消预约功能已经完成”。你最少需要看到哪三项证据才会接受？先写下证据，学完后检查它们是否覆盖权限、数据和失败场景。</p>
+                <label class="reflection-field"><span>写下学习前的三项证据</span><textarea data-reflection="stage-2-before" placeholder="1. ……&#10;2. ……&#10;3. ……"></textarea></label>
+                <span class="save-note">内容自动保存在当前浏览器。</span>
+              </div>
+              <div class="concept-sequence" aria-label="阶段二五个核心内容">
+                <h4>本章 5 个核心内容</h4>
+                <div class="concept-item"><span>1</span><div><b>先探索，再修改</b><p>AI 必须先理解现有文件、数据和限制；跳过探索会让它用想象代替项目事实。</p></div></div>
+                <div class="concept-item"><span>2</span><div><b>规格与验收标准</b><p>把“做一个功能”改写成用户、范围、业务规则、异常和可观察结果，避免完成标准只存在于脑中。</p></div></div>
+                <div class="concept-item"><span>3</span><div><b>小步实现</b><p>Feature list 管全局范围，每次只交付一个可测试增量，让问题更容易定位和回滚。</p></div></div>
+                <div class="concept-item"><span>4</span><div><b>证据闭环</b><p>测试、截图、日志和数据库记录分别证明不同事实；AI 的口头声明不算完成证据。</p></div></div>
+                <div class="concept-item"><span>5</span><div><b>进度与退路</b><p>Progress log、清晰提交和回滚点让下一次对话能恢复工作，也让错误不会扩散成整项目返工。</p></div></div>
+              </div>
+              <div class="content-grid">
+                <div class="content-block">
+                  <h4>学完你要会</h4>
+                  <ul>
+                    <li>把模糊需求拆成可验收的小任务。</li>
+                    <li>按 explore、plan、implement、verify、commit 推进。</li>
+                    <li>用 feature list 和 progress log 跨多次对话继续项目。</li>
+                  </ul>
+                </div>
+                <div class="content-block">
+                  <h4>本阶段阅读</h4>
+                  <ul class="reading-links">
+                    <li class="article-unit" id="article-claude-code-best-practices">
+                      <details>
+                        <summary><span class="reading-type">必读</span><span class="article-title">Best practices for Claude Code</span></summary>
+                        <div class="article-guide">
+                          <p>为什么读：把“让 AI 写代码”改造成探索、计划、实现、验证和提交的受控流程。</p>
+                          <div class="guide-grid">
+                            <div class="guide-block"><b>阅读前先判断</b><p>AI 说“完成了”时，你需要看到哪些证据才会接受？先列三项，并标出各自证明什么。</p></div>
+                            <div class="guide-block"><b>论证地图</b><ul><li>探索建立事实基础。</li><li>计划把范围和顺序显式化。</li><li>实现后用测试、截图与版本记录闭环。</li></ul></div>
+                            <div class="guide-block"><b>用类比理解</b><p>像请装修队改一间正在营业的店：先勘察管线，再确认图纸，分区施工，每一步都验收并保留恢复方案。</p></div>
+                            <div class="guide-block"><b>最容易误解</b><p>写了计划不等于过程受控。真正的控制来自“小步修改 → 运行验证 → 根据结果修正”的反馈循环。</p></div>
+                            <div class="guide-block"><b>读完自己解释</b><p>把“增加取消预约”改写成 Explore、Plan、Implement、Verify、Commit 五步，每步写一个完成证据。</p></div>
+                          </div>
+                          <div class="guide-actions">
+                            <a class="original-link" href="articles/reader.html#claude-code-best-practices">阅读中文精读摘要</a>
+                            <label class="article-complete check-item"><input type="checkbox" data-progress="article-claude-code-practices" /><span><strong>已完成导读、中文精读摘要和阅读问题</strong></span></label>
+                          </div>
+                        </div>
+                      </details>
+                    </li>
+                    <li class="article-unit" id="article-effective-harnesses-for-long-running-agents">
+                      <details>
+                        <summary><span class="reading-type">必读</span><span class="article-title">Effective harnesses for long-running agents</span></summary>
+                        <div class="article-guide">
+                          <p>为什么读：让长项目不依赖某一次聊天记忆，新会话也能继续正确工作。</p>
+                          <div class="guide-grid">
+                            <div class="guide-block"><b>阅读前先判断</b><p>如果当前对话立刻消失，下一位 AI 凭什么知道项目是否健康？写下它必须读取的最小文件集合。</p></div>
+                            <div class="guide-block"><b>论证地图</b><ul><li>初始化先留下功能清单和测试基线。</li><li>每次只完成一个功能。</li><li>进度记录、端到端测试和提交承担跨会话记忆。</li></ul></div>
+                            <div class="guide-block"><b>用类比理解</b><p>像医院交班：下一班不能依赖上一班医生的记忆，必须看到病历、当前状态、已做操作、风险和下一步。</p></div>
+                            <div class="guide-block"><b>最容易误解</b><p>长上下文不是长期连续性。可验证的文件、测试状态和提交记录才是项目可以被接手的外部记忆。</p></div>
+                            <div class="guide-block"><b>读完自己解释</b><p>列出下一位 AI 接手预约平台所需的 5 份材料，并说明缺少其中一份会造成什么错误。</p></div>
+                          </div>
+                          <div class="guide-actions">
+                            <a class="original-link" href="articles/reader.html#effective-harnesses-for-long-running-agents">阅读中文精读摘要</a>
+                            <label class="article-complete check-item"><input type="checkbox" data-progress="article-effective-harnesses" /><span><strong>已完成导读、中文精读摘要和阅读问题</strong></span></label>
+                          </div>
+                        </div>
+                      </details>
+                    </li>
+                    <li class="optional"><a href="articles/reader.html#harness-design-long-running-apps">Harness design for long-running application development</a><small>进一步学习 Planner、Generator、Evaluator 三角色分工。</small></li>
+                    <li class="optional"><a href="articles/reader.html#building-c-compiler">Building a C compiler with parallel Claudes</a><small>观察多 Agent 如何靠任务锁和测试协作。</small></li>
+                  </ul>
+                </div>
+              </div>
+
+              <fieldset class="knowledge-check" data-quiz="stage-2" data-answer="evidence">
+                <legend>即时回忆：先回答再继续</legend>
+                <p>AI 完成了“用户只能查看自己的订单”功能。下面哪项最能证明它真的完成？</p>
+                <div class="quiz-options">
+                  <label class="quiz-option"><input type="radio" name="quiz-stage-2" value="claim" />AI 回复“权限功能已经完整实现”</label>
+                  <label class="quiz-option"><input type="radio" name="quiz-stage-2" value="ui" />自己的订单页面可以打开</label>
+                  <label class="quiz-option"><input type="radio" name="quiz-stage-2" value="evidence" />用两个账号运行跨用户访问测试，并查看接口返回与日志</label>
+                </div>
+                <button class="quiz-submit" type="button">检查答案</button>
+                <p class="quiz-feedback" aria-live="polite"></p>
+                <label class="mastery-check check-item"><input type="checkbox" data-progress="quiz-stage-2" disabled /><span><strong>通过阶段二即时回忆</strong></span></label>
+              </fieldset>
+
+              <details class="worked-example">
+                <summary>先看一个完成示例：取消预约功能规格</summary>
+                <div class="example-body">
+                  <p><b>功能：</b>已登录用户可以取消自己的未来预约。</p>
+                  <p><b>验收：</b>取消后状态变为 cancelled；时段重新可预约；不能取消他人、过去或已取消预约；操作写入审计日志。</p>
+                  <p><b>执行顺序：</b>先探索现有数据表和权限 → 写计划 → 实现一个接口 → 运行五类测试 → 提交并更新 progress。</p>
+                </div>
+              </details>
+
+              <details class="guided-practice">
+                <summary>补全练习：预约提醒功能</summary>
+                <div class="guided-body">
+                  <p>功能要求只有一句：“预约前一天提醒用户”。把它补成可执行规格。</p>
+                  <ol><li>补一个正常路径结果。</li><li>补一个禁止重复提醒的规则。</li><li>补一个第三方发送失败的处理和证据。</li></ol>
+                  <label class="reflection-field"><span>补全你的规格</span><textarea data-reflection="stage-2-guided" placeholder="正常路径：……&#10;禁止行为：……&#10;失败处理与证据：……"></textarea></label>
+                </div>
+              </details>
+
+              <div class="self-explain">
+                <b>不要看答案，用自己的话讲 60 秒</b>
+                <p>为什么一份好规格必须同时包含正常路径、禁止行为和验证证据？再说明 progress log 与聊天记录的根本差别。</p>
+                <label class="reflection-field"><span>记录你的解释</span><textarea data-reflection="stage-2-explain" placeholder="规格必须包含……&#10;Progress log 与聊天记录的差别是……"></textarea></label>
+              </div>
+
+              <div class="workflow" aria-label="阶段二学习动作">
+                <div class="workflow-step"><b>读</b><span>重点找“先探索”“先计划”“必须验证”的证据。</span></div>
+                <div class="workflow-step"><b>问</b><span>让 AI 指出你需求里不清楚、无法验收的地方。</span></div>
+                <div class="workflow-step"><b>做</b><span>为贯穿案例写 feature list 和首个任务规格。</span></div>
+                <div class="workflow-step"><b>验</b><span>让另一次 AI 对话只看规格，判断能否独立执行。</span></div>
+              </div>
+
+              <details>
+                <summary>把模糊需求改成可执行规格</summary>
+                <div class="prompt-wrap">
+                  <pre class="prompt" id="prompt-2">我要用 AI 做一个“[产品名称]”。目标用户是“[用户]”，最重要的场景是“[场景]”。请先不要写代码。按以下顺序工作：
+1. 列出你还缺少的关键信息；
+2. 把需求拆成不超过 8 个功能；
+3. 为每个功能写可观察、可测试的验收标准；
+4. 标出数据、权限、安全和异常处理要求；
+5. 给出 explore → plan → implement → verify → commit 的执行计划。
+任何无法确定的地方必须明确标为“待确认”，不要自行猜测。</pre>
+                  <button class="copy-button" type="button" data-copy-target="prompt-2">复制提示词</button>
+                </div>
+              </details>
+
+              <div class="check-list">
+                <label class="check-item">
+                  <input type="checkbox" data-progress="stage-2-features" />
+                  <span><strong>完成 feature list</strong><span>每项都有范围、优先级和验收标准。</span></span>
+                </label>
+                <label class="check-item">
+                  <input type="checkbox" data-progress="stage-2-log" />
+                  <span><strong>建立 progress log</strong><span>能让下一次 AI 对话快速知道已完成、未完成和风险。</span></span>
+                </label>
+              </div>
+
+              <div class="spaced-review">
+                <b>进入阶段 3 前：凭记忆重建工作流</b>
+                <p>写出 Explore → Plan → Implement → Verify → Commit，并为每一步各写一个产物；然后列出下一次 AI 接手时要读的文件。</p>
+                <small>对照原文只修正遗漏，不整段重抄。</small>
+                <label class="review-confirm"><input type="checkbox" data-review="stage-2-review" />我已在至少 24 小时后完成</label>
+              </div>
+
+              <div class="stage-footer">
+                <div class="stage-output">
+                  <b>阶段产出</b>
+                  <span>项目规格、feature list、progress log、第一轮验收标准。</span>
+                </div>
+                <a class="template-link" href="../materials/learner-workspace/outputs/阶段2-产品规格与进度控制.md" download>下载阶段模板</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="learning-stage" id="stage-3" data-stage="3">
+            <header class="stage-header">
+              <div class="stage-index">03</div>
+              <div>
+                <h3>掌握工具、上下文与能力扩展</h3>
+                <p>理解 AI 为什么需要工具，以及怎样避免工具和资料把上下文挤满。</p>
+              </div>
+              <p class="stage-time">约 3 小时</p>
+            </header>
+            <div class="stage-body">
+              <div class="lesson-loop" aria-label="阶段三学习顺序">
+                <span>1 先猜一下</span><span>2 导读与精读摘要</span><span>3 回忆检查</span>
+                <span>4 拆解示例</span><span>5 自己解释</span><span>6 项目迁移</span>
+              </div>
+              <div class="chapter-prequestion">
+                <b>读前先判断，不要求答对</b>
+                <p>“查询当前可预约时段”应该写进提示词、做成工具、封装成 Skill，还是每次从数据库检索？先选一种并说明你对实时性、权限和错误的考虑。</p>
+                <label class="reflection-field"><span>写下学习前的选择</span><textarea data-reflection="stage-3-before" placeholder="我会选择……，因为实时性……、权限……、错误……"></textarea></label>
+                <span class="save-note">内容自动保存在当前浏览器。</span>
+              </div>
+              <div class="concept-sequence" aria-label="阶段三五个核心内容">
+                <h4>本章 5 个核心内容</h4>
+                <div class="concept-item"><span>1</span><div><b>工具是一份契约</b><p>名称、使用时机、输入、输出和错误必须明确，让非确定性的 AI 能稳定调用确定性系统。</p></div></div>
+                <div class="concept-item"><span>2</span><div><b>最小工具集合</b><p>工具越多，选择和权限越复杂。只保留完成核心流程必需的能力，并为每个工具划清边界。</p></div></div>
+                <div class="concept-item"><span>3</span><div><b>最小高信号上下文</b><p>始终提供的是稳定规则，按需提供的是当前资料，敏感或无关信息则不应进入上下文。</p></div></div>
+                <div class="concept-item"><span>4</span><div><b>Skill 与渐进披露</b><p>Skill 把可复用流程、脚本和参考资料打包，只在触发时加载，避免所有知识长期占用上下文。</p></div></div>
+                <div class="concept-item"><span>5</span><div><b>数据暴露与结果过滤</b><p>工具只返回当前决策需要的字段，区分“无结果”“输入错误”“服务失败”，同时避免泄露用户和内部数据。</p></div></div>
+              </div>
+              <div class="content-grid">
+                <div class="content-block">
+                  <h4>学完你要会</h4>
+                  <ul>
+                    <li>判断一个操作应该靠提示词、工具、Skill 还是检索完成。</li>
+                    <li>知道工具描述是 AI 与确定性系统之间的契约。</li>
+                    <li>会设计最小上下文包，避免一次塞入所有资料。</li>
+                  </ul>
+                </div>
+                <div class="content-block">
+                  <h4>本阶段阅读</h4>
+                  <ul class="reading-links">
+                    <li class="article-unit" id="article-writing-tools-for-agents">
+                      <details>
+                        <summary><span class="reading-type">必读</span><span class="article-title">Writing effective tools for agents</span></summary>
+                        <div class="article-guide">
+                          <p>为什么读：工具不是普通 API 文档，而是确定性系统与非确定性 Agent 之间的操作契约。</p>
+                          <div class="guide-grid">
+                            <div class="guide-block"><b>阅读前先判断</b><p>同样是“查预约”，什么描述能让 AI 知道何时调用、需要哪些输入、失败后不能怎样回答？</p></div>
+                            <div class="guide-block"><b>论证地图</b><ul><li>先用清晰名称和描述降低选错工具。</li><li>再约束输入和高信号输出。</li><li>最后用真实任务验证调用与结果。</li></ul></div>
+                            <div class="guide-block"><b>用类比理解</b><p>工具像厨房中有标签和规格的器具：用途、容量和危险边界越明确，临场工作的人越不容易拿错或误用。</p></div>
+                            <div class="guide-block"><b>最容易误解</b><p>对人类开发者方便的 API 不一定适合 Agent。Agent 需要更明确的意图、字段含义、失败类型和下一步。</p></div>
+                            <div class="guide-block"><b>读完自己解释</b><p>找一个含糊工具描述，重写为“何时用、必填输入、返回什么、失败怎么办、禁止什么”五部分。</p></div>
+                          </div>
+                          <div class="guide-actions">
+                            <a class="original-link" href="articles/reader.html#writing-tools-for-agents">阅读中文精读摘要</a>
+                            <label class="article-complete check-item"><input type="checkbox" data-progress="article-writing-tools" /><span><strong>已完成导读、中文精读摘要和阅读问题</strong></span></label>
+                          </div>
+                        </div>
+                      </details>
+                    </li>
+                    <li class="article-unit" id="article-equipping-agents-for-the-real-world-with-agent-skills">
+                      <details>
+                        <summary><span class="reading-type">必读</span><span class="article-title">Equipping agents with Agent Skills</span></summary>
+                        <div class="article-guide">
+                          <p>为什么读：学习把稳定流程、脚本和参考资料打包成按需加载、可复用的能力。</p>
+                          <div class="guide-grid">
+                            <div class="guide-block"><b>阅读前先判断</b><p>所有业务流程说明都应该始终放进提示词吗？选一个只在特定任务才需要的流程作为反例。</p></div>
+                            <div class="guide-block"><b>论证地图</b><ul><li>先用触发条件识别所需能力。</li><li>再按需加载说明、脚本和资源。</li><li>通过清晰边界让多个 Skill 可组合。</li></ul></div>
+                            <div class="guide-block"><b>用类比理解</b><p>Skill 像按工作领取的工具箱和操作手册：平时不占工作台，需要“处理退款”时才取出对应整套材料。</p></div>
+                            <div class="guide-block"><b>最容易误解</b><p>Skill 不是一段更长的提示词。它是可触发、可复用、带资源和边界的能力包。</p></div>
+                            <div class="guide-block"><b>读完自己解释</b><p>为“每日预约对账”写出 Skill 的触发条件、输入、输出、资源和禁止边界。</p></div>
+                          </div>
+                          <div class="guide-actions">
+                            <a class="original-link" href="articles/reader.html#equipping-agents-for-the-real-world-with-agent-skills">阅读中文精读摘要</a>
+                            <label class="article-complete check-item"><input type="checkbox" data-progress="article-agent-skills" /><span><strong>已完成导读、中文精读摘要和阅读问题</strong></span></label>
+                          </div>
+                        </div>
+                      </details>
+                    </li>
+                    <li class="optional"><a href="articles/reader.html#advanced-tool-use">Advanced tool use</a><small>工具很多时，学习搜索和程序化调用。</small></li>
+                    <li class="optional"><a href="articles/reader.html#code-execution-with-mcp">Code execution with MCP</a><small>学习用代码编排工具并压缩中间结果。</small></li>
+                    <li class="optional"><a href="articles/reader.html#contextual-retrieval">Introducing Contextual Retrieval</a><small>需要知识库时，再深入 RAG 的召回与重排。</small></li>
+                    <li class="optional"><a href="articles/reader.html#desktop-extensions">Desktop Extensions</a><small>理解工具如何降低非技术用户安装门槛。</small></li>
+                    <li class="optional"><a href="articles/reader.html#claude-think-tool">The think tool</a><small>复杂规则链需要显式推理空间时阅读。</small></li>
+                  </ul>
+                </div>
+              </div>
+
+              <fieldset class="knowledge-check" data-quiz="stage-3" data-answer="api">
+                <legend>即时回忆：先回答再继续</legend>
+                <p>用户要求“查询当前可预约时段”，数据每天变化且来自业务数据库。最合理的方法是什么？</p>
+                <div class="quiz-options">
+                  <label class="quiz-option"><input type="radio" name="quiz-stage-3" value="prompt" />把上个月的时段复制进系统提示词</label>
+                  <label class="quiz-option"><input type="radio" name="quiz-stage-3" value="api" />提供只读查询工具/API，并限制返回字段和查询范围</label>
+                  <label class="quiz-option"><input type="radio" name="quiz-stage-3" value="skill" />写一个只包含业务介绍的 Skill，让 AI 猜测当前时段</label>
+                </div>
+                <button class="quiz-submit" type="button">检查答案</button>
+                <p class="quiz-feedback" aria-live="polite"></p>
+                <label class="mastery-check check-item"><input type="checkbox" data-progress="quiz-stage-3" disabled /><span><strong>通过阶段三即时回忆</strong></span></label>
+              </fieldset>
+
+              <details class="worked-example">
+                <summary>先看一个完成示例：查询预约时段工具</summary>
+                <div class="example-body">
+                  <p><b>输入：</b>门店 ID、开始日期、结束日期；日期范围最多 14 天。</p>
+                  <p><b>输出：</b>可预约日期、开始时间、剩余名额；不返回用户信息或内部数据库字段。</p>
+                  <p><b>失败：</b>明确区分无可用时段、参数错误和服务暂不可用，让 Agent 不会把系统错误说成“没有名额”。</p>
+                </div>
+              </details>
+
+              <details class="guided-practice">
+                <summary>补全练习：取消预约工具契约</summary>
+                <div class="guided-body">
+                  <p>工具名称暂定为 <b>cancel_booking</b>。请补全 Agent 真正需要的契约。</p>
+                  <ol><li>什么时候允许调用，什么时候禁止调用。</li><li>最少需要哪些输入。</li><li>如何区分“已取消”“无权限”和“服务故障”。</li></ol>
+                  <label class="reflection-field"><span>补全工具契约</span><textarea data-reflection="stage-3-guided" placeholder="允许/禁止：……&#10;输入：……&#10;三种结果：……"></textarea></label>
+                </div>
+              </details>
+
+              <div class="self-explain">
+                <b>不要看答案，用自己的话讲 60 秒</b>
+                <p>为什么实时数据应该由工具提供，而稳定流程更适合 Skill？再解释“最小上下文”如何同时改善判断质量和数据安全。</p>
+                <label class="reflection-field"><span>记录你的解释</span><textarea data-reflection="stage-3-explain" placeholder="实时数据用工具，因为……&#10;稳定流程用 Skill，因为……&#10;最小上下文可以……"></textarea></label>
+              </div>
+
+              <div class="workflow" aria-label="阶段三学习动作">
+                <div class="workflow-step"><b>读</b><span>分别记录工具、Skill、RAG 解决的问题。</span></div>
+                <div class="workflow-step"><b>问</b><span>让 AI 比较四种能力扩展方式的成本和风险。</span></div>
+                <div class="workflow-step"><b>做</b><span>为案例列出工具表，并写清输入、输出和失败状态。</span></div>
+                <div class="workflow-step"><b>验</b><span>删掉不必要工具，确认最小集合仍能完成核心流程。</span></div>
+              </div>
+
+              <details>
+                <summary>生成工具与上下文选型表</summary>
+                <div class="prompt-wrap">
+                  <pre class="prompt" id="prompt-3">请为“[产品名称]”做一张 AI 能力选型表。逐项判断以下需求应该使用：普通提示词、固定代码、外部工具/API、Skill、RAG/检索，或不应该交给 AI。每项说明：
+- 输入和输出
+- 失败时会发生什么
+- 是否涉及用户数据或权限
+- 是否需要人工确认
+- 为什么不用更简单的方法
+最后给出一个“最小可用工具集合”，避免为了炫技增加工具。</pre>
+                  <button class="copy-button" type="button" data-copy-target="prompt-3">复制提示词</button>
+                </div>
+              </details>
+
+              <div class="check-list">
+                <label class="check-item">
+                  <input type="checkbox" data-progress="stage-3-tools" />
+                  <span><strong>完成最小工具清单</strong><span>每个工具都有输入、输出、错误和权限说明。</span></span>
+                </label>
+                <label class="check-item">
+                  <input type="checkbox" data-progress="stage-3-context" />
+                  <span><strong>完成上下文包设计</strong><span>区分始终提供、按需提供和禁止提供的信息。</span></span>
+                </label>
+              </div>
+
+              <div class="spaced-review">
+                <b>进入阶段 4 前：做一次三分辨认</b>
+                <p>分别给 Tool、Skill、Context 写一句定义、一个预约平台例子和一个常见误用；不看笔记完成后再核对。</p>
+                <small>重点不是背术语，而是能在新需求中选对能力边界。</small>
+                <label class="review-confirm"><input type="checkbox" data-review="stage-3-review" />我已在至少 24 小时后完成</label>
+              </div>
+
+              <div class="stage-footer">
+                <div class="stage-output">
+                  <b>阶段产出</b>
+                  <span>工具选型表 + 最小上下文包 + 数据暴露清单。</span>
+                </div>
+                <a class="template-link" href="../materials/learner-workspace/outputs/阶段3-工具与上下文边界.md" download>下载阶段模板</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="learning-stage" id="stage-4" data-stage="4">
+            <header class="stage-header">
+              <div class="stage-index">04</div>
+              <div>
+                <h3>建立安全、权限与生产边界</h3>
+                <p>这是“能演示”和“敢给真实用户使用”之间最重要的一课。</p>
+              </div>
+              <p class="stage-time">约 3 小时</p>
+            </header>
+            <div class="stage-body">
+              <div class="lesson-loop" aria-label="阶段四学习顺序">
+                <span>1 先猜一下</span><span>2 导读与精读摘要</span><span>3 回忆检查</span>
+                <span>4 拆解示例</span><span>5 自己解释</span><span>6 项目迁移</span>
+              </div>
+              <div class="chapter-prequestion">
+                <b>读前先判断，不要求答对</b>
+                <p>如果一个提示注入成功诱导 AI 删除数据，系统中哪一层仍应阻止它？先写下你认为的最后防线，不要把“AI 会拒绝”当答案。</p>
+                <label class="reflection-field"><span>写下学习前的最后防线</span><textarea data-reflection="stage-4-before" placeholder="即使提示注入成功，……仍应阻止，因为……"></textarea></label>
+                <span class="save-note">内容自动保存在当前浏览器。</span>
+              </div>
+              <div class="concept-sequence" aria-label="阶段四五个核心内容">
+                <h4>本章 5 个核心内容</h4>
+                <div class="concept-item"><span>1</span><div><b>三类风险来源</b><p>风险可能来自正常功能被滥用、模型做错判断，或外部输入主动攻击；不能只防其中一种。</p></div></div>
+                <div class="concept-item"><span>2</span><div><b>提示确认与真正边界</b><p>用户点击“允许”只是一次决定；文件、网络、身份和数据库的系统限制才控制真实破坏范围。</p></div></div>
+                <div class="concept-item"><span>3</span><div><b>开发、测试、生产隔离</b><p>三套环境使用不同数据、账号、密钥和域名，让实验错误无法直接影响真实用户。</p></div></div>
+                <div class="concept-item"><span>4</span><div><b>最小权限与凭证隔离</b><p>AI 只获得当前任务所需权限，敏感凭证不进入提示词，也不赋予数据库管理员能力。</p></div></div>
+                <div class="concept-item"><span>5</span><div><b>可逆、可审计、可限制出口</b><p>高风险写操作需要撤销方案和审计记录；网络出口限制能减少数据外泄和恶意下载。</p></div></div>
+              </div>
+              <div class="content-grid">
+                <div class="content-block">
+                  <h4>学完你要会</h4>
+                  <ul>
+                    <li>解释为什么连续点“允许”不等于安全。</li>
+                    <li>把开发、测试、生产数据和密钥分开。</li>
+                    <li>为 AI 设置最小权限、沙箱和可撤销操作。</li>
+                  </ul>
+                </div>
+                <div class="content-block">
+                  <h4>本阶段阅读</h4>
+                  <ul class="reading-links">
+                    <li class="article-unit" id="article-how-we-contain-claude">
+                      <details>
+                        <summary><span class="reading-type">必读</span><span class="article-title">How we contain Claude across products</span></summary>
+                        <div class="article-guide">
+                          <p>为什么读：同一个模型在不同产品表面需要不同隔离层，安全来自系统设计而不是模型自觉。</p>
+                          <div class="guide-grid">
+                            <div class="guide-block"><b>阅读前先判断</b><p>假设提示注入已经成功，哪一层系统还能阻止 AI 读取密钥、访问外网或修改生产数据？</p></div>
+                            <div class="guide-block"><b>论证地图</b><ul><li>不同产品暴露不同能力和信任边界。</li><li>身份、沙箱、VM 与网络共同限制能力。</li><li>假设单层会失效，建立多层防护。</li></ul></div>
+                            <div class="guide-block"><b>用类比理解</b><p>像酒店房卡、楼层门禁和防火门：即使一张房卡被误用，也不该因此打开机房和整栋楼。</p></div>
+                            <div class="guide-block"><b>最容易误解</b><p>安全不能建立在“相信模型会听话”上。必须在模型做错、用户误点和恶意输入出现时仍限制影响。</p></div>
+                            <div class="guide-block"><b>读完自己解释</b><p>为预约平台分别写出文件、网络、身份、数据和回滚五条边界，并说明每条防哪类失败。</p></div>
+                          </div>
+                          <div class="guide-actions">
+                            <a class="original-link" href="articles/reader.html#how-we-contain-claude">阅读中文精读摘要</a>
+                            <label class="article-complete check-item"><input type="checkbox" data-progress="article-contain-claude" /><span><strong>已完成导读、中文精读摘要和阅读问题</strong></span></label>
+                          </div>
+                        </div>
+                      </details>
+                    </li>
+                    <li class="article-unit" id="article-claude-code-sandboxing">
+                      <details>
+                        <summary><span class="reading-type">必读</span><span class="article-title">Beyond permission prompts</span></summary>
+                        <div class="article-guide">
+                          <p>为什么读：频繁弹窗会导致审批疲劳，真正的安全需要默认限制文件和网络访问。</p>
+                          <div class="guide-grid">
+                            <div class="guide-block"><b>阅读前先判断</b><p>为什么用户会越来越快地点“允许”？如果提示失效，哪个环境限制仍应继续生效？</p></div>
+                            <div class="guide-block"><b>论证地图</b><ul><li>高频提示造成审批疲劳。</li><li>默认文件和网络限制缩小能力范围。</li><li>只把少数真正例外交给用户确认。</li></ul></div>
+                            <div class="guide-block"><b>用类比理解</b><p>每扇门都问“能进去吗”会让人机械点头；预先配置的门禁卡只开放必要区域，例外访问才单独审批。</p></div>
+                            <div class="guide-block"><b>最容易误解</b><p>更多弹窗不等于更安全。提示只传递决定，沙箱和权限边界才执行决定。</p></div>
+                            <div class="guide-block"><b>读完自己解释</b><p>选一个高风险动作，分别写出用户确认和系统强制边界，并说明为什么两者不能互相替代。</p></div>
+                          </div>
+                          <div class="guide-actions">
+                            <a class="original-link" href="articles/reader.html#claude-code-sandboxing">阅读中文精读摘要</a>
+                            <label class="article-complete check-item"><input type="checkbox" data-progress="article-sandboxing" /><span><strong>已完成导读、中文精读摘要和阅读问题</strong></span></label>
+                          </div>
+                        </div>
+                      </details>
+                    </li>
+                    <li class="optional"><a href="articles/reader.html#claude-code-auto-mode">How we built Claude Code auto mode</a><small>进一步理解风险分类器如何替代部分人工审批。</small></li>
+                  </ul>
+                </div>
+              </div>
+
+              <fieldset class="knowledge-check" data-quiz="stage-4" data-answer="isolate">
+                <legend>即时回忆：先回答再继续</legend>
+                <p>开发中的 AI 工具需要测试“删除预约”功能。下面哪种做法最安全？</p>
+                <div class="quiz-options">
+                  <label class="quiz-option"><input type="radio" name="quiz-stage-4" value="approve" />连接生产数据库，每次删除前弹窗确认</label>
+                  <label class="quiz-option"><input type="radio" name="quiz-stage-4" value="isolate" />连接独立测试数据库，使用测试账号和可重建数据</label>
+                  <label class="quiz-option"><input type="radio" name="quiz-stage-4" value="secret" />把生产密钥放进提示词，并要求 AI 不要泄露</label>
+                </div>
+                <button class="quiz-submit" type="button">检查答案</button>
+                <p class="quiz-feedback" aria-live="polite"></p>
+                <label class="mastery-check check-item"><input type="checkbox" data-progress="quiz-stage-4" disabled /><span><strong>通过阶段四即时回忆</strong></span></label>
+              </fieldset>
+
+              <details class="worked-example">
+                <summary>先看一个完成示例：三环境隔离</summary>
+                <div class="example-body">
+                  <p><b>开发环境：</b>本地假账号、可随时清空的数据、开发密钥，只允许访问测试服务。</p>
+                  <p><b>测试环境：</b>接近生产配置但不含真实用户数据，用于权限、迁移和发布前验证。</p>
+                  <p><b>生产环境：</b>独立账号与密钥，默认只读诊断；写操作经过受控发布流程，AI 不直接持有数据库管理员权限。</p>
+                </div>
+              </details>
+
+              <details class="guided-practice">
+                <summary>补全练习：批量取消预约</summary>
+                <div class="guided-body">
+                  <p>运营人员需要批量取消某天预约。这个动作既合理又高风险。</p>
+                  <ol><li>写一条最小权限限制。</li><li>写一条系统强制边界，不依赖用户点确认。</li><li>写出审计记录和撤销方法。</li></ol>
+                  <label class="reflection-field"><span>补全安全边界</span><textarea data-reflection="stage-4-guided" placeholder="最小权限：……&#10;系统边界：……&#10;审计与撤销：……"></textarea></label>
+                </div>
+              </details>
+
+              <div class="self-explain">
+                <b>不要看答案，用自己的话讲 60 秒</b>
+                <p>为什么“每次删除前弹窗”仍不如“只连接可重建的测试数据库”？回答中必须包含审批疲劳、破坏范围和恢复能力。</p>
+                <label class="reflection-field"><span>记录你的解释</span><textarea data-reflection="stage-4-explain" placeholder="审批疲劳：……&#10;破坏范围：……&#10;恢复能力：……"></textarea></label>
+              </div>
+
+              <div class="workflow" aria-label="阶段四学习动作">
+                <div class="workflow-step"><b>读</b><span>找出文章中的“人会失误”和“系统必须限制”。</span></div>
+                <div class="workflow-step"><b>问</b><span>让 AI 对你的项目做威胁建模，不要直接修复。</span></div>
+                <div class="workflow-step"><b>做</b><span>画出开发、测试、生产三套环境和数据流。</span></div>
+                <div class="workflow-step"><b>验</b><span>逐项证明 AI 无法接触生产密钥、越权数据和不可逆操作。</span></div>
+              </div>
+
+              <details>
+                <summary>生成非程序员安全审查清单</summary>
+                <div class="prompt-wrap">
+                  <pre class="prompt" id="prompt-4">请以安全审查员身份检查“[产品名称]”。先不要修改任何代码。按严重程度列出：
+1. AI 可能接触到的密钥、账号和用户数据；
+2. AI 或用户可能越权执行的操作；
+3. 文件、网络、数据库和第三方服务需要怎样隔离；
+4. 哪些操作必须可撤销、必须二次确认或必须禁止；
+5. 开发、测试、生产环境如何分开。
+每个风险都给出“如何验证风险已被控制”的证据，不接受只写“注意安全”。</pre>
+                  <button class="copy-button" type="button" data-copy-target="prompt-4">复制提示词</button>
+                </div>
+              </details>
+
+              <div class="check-list">
+                <label class="check-item">
+                  <input type="checkbox" data-progress="stage-4-env" />
+                  <span><strong>完成三环境隔离图</strong><span>标明密钥、数据库、域名、日志分别属于哪套环境。</span></span>
+                </label>
+                <label class="check-item">
+                  <input type="checkbox" data-progress="stage-4-redlines" />
+                  <span><strong>完成安全红线</strong><span>至少包含 10 条“禁止直接做”的操作。</span></span>
+                </label>
+              </div>
+
+              <div class="spaced-review">
+                <b>进入阶段 5 前：不看笔记解释安全边界</b>
+                <p>回答“为什么权限提示不是安全边界”，再从开发、测试、生产中各举一条数据或凭证隔离规则。</p>
+                <small>只要解释中仍依赖“AI 应该不会这样做”，就回到本章重新找系统层控制。</small>
+                <label class="review-confirm"><input type="checkbox" data-review="stage-4-review" />我已在至少 24 小时后完成</label>
+              </div>
+
+              <div class="stage-footer">
+                <div class="stage-output">
+                  <b>阶段产出</b>
+                  <span>三环境隔离图 + 权限矩阵 + 安全红线。</span>
+                </div>
+                <a class="template-link" href="../materials/learner-workspace/outputs/阶段4-安全边界与权限矩阵.md" download>下载阶段模板</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="learning-stage" id="stage-5" data-stage="5">
+            <header class="stage-header">
+              <div class="stage-index">05</div>
+              <div>
+                <h3>学习评测与验收</h3>
+                <p>把“我试了几次能用”升级成稳定、可重复、有证据的质量判断。</p>
+              </div>
+              <p class="stage-time">约 3.5 小时</p>
+            </header>
+            <div class="stage-body">
+              <div class="lesson-loop" aria-label="阶段五学习顺序">
+                <span>1 先猜一下</span><span>2 导读与精读摘要</span><span>3 回忆检查</span>
+                <span>4 拆解示例</span><span>5 自己解释</span><span>6 项目迁移</span>
+              </div>
+              <div class="chapter-prequestion">
+                <b>读前先判断，不要求答对</b>
+                <p>一个 Agent 评测得到 90 分。这个数字还缺少哪些信息，才足以判断产品是否能上线？至少写出任务、环境、评分和重复次数中的三项。</p>
+                <label class="reflection-field"><span>写下学习前还缺的信息</span><textarea data-reflection="stage-5-before" placeholder="任务：……&#10;环境：……&#10;评分：……&#10;重复次数：……"></textarea></label>
+                <span class="save-note">内容自动保存在当前浏览器。</span>
+              </div>
+              <div class="concept-sequence" aria-label="阶段五五个核心内容">
+                <h4>本章 5 个核心内容</h4>
+                <div class="concept-item"><span>1</span><div><b>评测的五个组成</b><p>Task 定义任务，Trial 是一次运行，Grader 负责评分，Trace 记录过程，Outcome 是最终结果。</p></div></div>
+                <div class="concept-item"><span>2</span><div><b>覆盖真实失败</b><p>正常、边界、权限和故障场景缺一不可；只测“顺利完成”会掩盖最危险的问题。</p></div></div>
+                <div class="concept-item"><span>3</span><div><b>评分器与量表</b><p>确定性规则适合检查字段和状态，模型评分适合开放质量，但必须配清晰量表和人工抽查。</p></div></div>
+                <div class="concept-item"><span>4</span><div><b>基础设施噪声</b><p>资源、超时、网络和运行环境会改变结果；单次失败或单次高分都不能自动归因给模型。</p></div></div>
+                <div class="concept-item"><span>5</span><div><b>重复与回归</b><p>固定条件重复运行、记录波动，并把生产失败加入回归集，才能判断改动是否持续有效。</p></div></div>
+              </div>
+              <div class="content-grid">
+                <div class="content-block">
+                  <h4>学完你要会</h4>
+                  <ul>
+                    <li>理解 task、trial、grader、trace、outcome。</li>
+                    <li>为同一功能准备正常、边界和失败用例。</li>
+                    <li>知道模型、工具、机器资源和评测环境都会改变分数。</li>
+                  </ul>
+                </div>
+                <div class="content-block">
+                  <h4>本阶段阅读</h4>
+                  <ul class="reading-links">
+                    <li class="article-unit" id="article-demystifying-evals-for-ai-agents">
+                      <details>
+                        <summary><span class="reading-type">必读</span><span class="article-title">Demystifying evals for AI agents</span></summary>
+                        <div class="article-guide">
+                          <p>为什么读：把主观体验转化成可重复的任务、运行、评分、轨迹和结果。</p>
+                          <div class="guide-grid">
+                            <div class="guide-block"><b>阅读前先判断</b><p>“通过 90%”到底代表什么？先写下你需要知道的测试任务、运行次数、评分方式和失败分布。</p></div>
+                            <div class="guide-block"><b>论证地图</b><ul><li>先拆清 Task、Trial、Grader、Trace、Outcome。</li><li>从高价值真实任务建立小评测集。</li><li>持续把生产失败加入回归。</li></ul></div>
+                            <div class="guide-block"><b>用类比理解</b><p>像驾驶考试：路线是 Task，每次上车是 Trial，考官规则是 Grader，行车记录是 Trace，是否安全抵达是 Outcome。</p></div>
+                            <div class="guide-block"><b>最容易误解</b><p>一条测试用例不等于完整 Eval。没有运行环境、过程记录和评分规则，分数无法解释，也无法复现。</p></div>
+                            <div class="guide-block"><b>读完自己解释</b><p>用预约取消功能分别定义 Task、Trial、Grader、Trace 和 Outcome，并指出只看最终文字会漏掉什么。</p></div>
+                          </div>
+                          <div class="guide-actions">
+                            <a class="original-link" href="articles/reader.html#demystifying-evals-for-ai-agents">阅读中文精读摘要</a>
+                            <label class="article-complete check-item"><input type="checkbox" data-progress="article-demystifying-evals" /><span><strong>已完成导读、中文精读摘要和阅读问题</strong></span></label>
+                          </div>
+                        </div>
+                      </details>
+                    </li>
+                    <li class="article-unit" id="article-infrastructure-noise">
+                      <details>
+                        <summary><span class="reading-type">必读</span><span class="article-title">Quantifying infrastructure noise</span></summary>
+                        <div class="article-guide">
+                          <p>为什么读：Agent 评测分数不仅受模型影响，CPU、内存、时间限制和环境都会制造噪声。</p>
+                          <div class="guide-grid">
+                            <div class="guide-block"><b>阅读前先判断</b><p>同一个 Agent 两次分数不同，除了模型能力，还可能有哪些变量变化？先列出资源、时间和网络因素。</p></div>
+                            <div class="guide-block"><b>论证地图</b><ul><li>资源限制会制造失败和分数波动。</li><li>环境与限制必须固定并记录。</li><li>重复运行和波动范围比单点分数更可信。</li></ul></div>
+                            <div class="guide-block"><b>用类比理解</b><p>像同一名跑者在不同跑道、天气和计时规则下比赛；成绩变化不一定来自能力变化。</p></div>
+                            <div class="guide-block"><b>最容易误解</b><p>分数差异不自动等于模型差异。要先排除资源、依赖、超时和环境不一致，再讨论能力。</p></div>
+                            <div class="guide-block"><b>读完自己解释</b><p>为一次预约评测列出必须固定的变量、需要重复的次数，以及用什么证据区分产品缺陷和环境噪声。</p></div>
+                          </div>
+                          <div class="guide-actions">
+                            <a class="original-link" href="articles/reader.html#infrastructure-noise">阅读中文精读摘要</a>
+                            <label class="article-complete check-item"><input type="checkbox" data-progress="article-infrastructure-noise" /><span><strong>已完成导读、中文精读摘要和阅读问题</strong></span></label>
+                          </div>
+                        </div>
+                      </details>
+                    </li>
+                    <li class="optional"><a href="articles/reader.html#AI-resistant-technical-evaluations">Designing AI-resistant technical evaluations</a><small>需要设计 AI 时代的人才评估时阅读。</small></li>
+                    <li class="optional"><a href="articles/reader.html#eval-awareness-browsecomp">Eval awareness in BrowseComp</a><small>理解模型知道自己被测时，基准为何失真。</small></li>
+                    <li class="optional"><a href="articles/reader.html#swe-bench-sonnet">Raising the bar on SWE-bench Verified</a><small>观察模型、工具和 Scaffold 如何共同决定结果。</small></li>
+                  </ul>
+                </div>
+              </div>
+
+              <fieldset class="knowledge-check" data-quiz="stage-5" data-answer="repeat">
+                <legend>即时回忆：先回答再继续</legend>
+                <p>同一测试昨天通过、今天失败。最合理的第一步是什么？</p>
+                <div class="quiz-options">
+                  <label class="quiz-option"><input type="radio" name="quiz-stage-5" value="model" />立即断定模型退化</label>
+                  <label class="quiz-option"><input type="radio" name="quiz-stage-5" value="ignore" />忽略失败，因为昨天已经成功</label>
+                  <label class="quiz-option"><input type="radio" name="quiz-stage-5" value="repeat" />固定模型和环境，重复运行并比较轨迹、资源与失败位置</label>
+                </div>
+                <button class="quiz-submit" type="button">检查答案</button>
+                <p class="quiz-feedback" aria-live="polite"></p>
+                <label class="mastery-check check-item"><input type="checkbox" data-progress="quiz-stage-5" disabled /><span><strong>通过阶段五即时回忆</strong></span></label>
+              </fieldset>
+
+              <details class="worked-example">
+                <summary>先看一个完成示例：跨用户访问测试</summary>
+                <div class="example-body">
+                  <p><b>准备：</b>用户 A 和 B 各有一条预约记录，记录对应 ID 已知。</p>
+                  <p><b>操作：</b>A 登录后请求 B 的预约详情接口。</p>
+                  <p><b>预期：</b>返回 403 或不可区分的 404；响应中没有 B 的任何字段；安全日志记录用户 A、目标资源和拒绝原因。</p>
+                </div>
+              </details>
+
+              <details class="guided-practice">
+                <summary>补全练习：重复预约评测</summary>
+                <div class="guided-body">
+                  <p>规则是“同一用户不能重复预约同一时段”。把一句规则补成可运行评测。</p>
+                  <ol><li>写明准备数据和操作步骤。</li><li>写明结果与数据库证据。</li><li>写明至少重复几次，以及要固定的环境变量。</li></ol>
+                  <label class="reflection-field"><span>补全评测</span><textarea data-reflection="stage-5-guided" placeholder="准备与操作：……&#10;结果与证据：……&#10;重复与环境：……"></textarea></label>
+                </div>
+              </details>
+
+              <div class="self-explain">
+                <b>不要看答案，用自己的话讲 60 秒</b>
+                <p>为什么“页面看起来正常”不能证明跨用户访问是安全的？再解释一次 Eval 为什么必须同时看结果、执行轨迹和环境。</p>
+                <label class="reflection-field"><span>记录你的解释</span><textarea data-reflection="stage-5-explain" placeholder="页面不能证明……&#10;结果说明……&#10;轨迹说明……&#10;环境说明……"></textarea></label>
+              </div>
+
+              <div class="workflow" aria-label="阶段五学习动作">
+                <div class="workflow-step"><b>读</b><span>记录每个评测术语解决的具体问题。</span></div>
+                <div class="workflow-step"><b>问</b><span>让 AI 挑战你现有验收标准，找出“容易作假”的部分。</span></div>
+                <div class="workflow-step"><b>做</b><span>为核心流程设计 10 条测试，包含 3 条失败用例。</span></div>
+                <div class="workflow-step"><b>验</b><span>重复运行并记录结果，确认不是偶然成功。</span></div>
+              </div>
+
+              <details>
+                <summary>把验收标准改造成可运行测试</summary>
+                <div class="prompt-wrap">
+                  <pre class="prompt" id="prompt-5">这是“[功能名称]”的当前验收标准：[粘贴内容]。
+请把它改造成一组可重复执行的测试用例，覆盖：
+- 正常路径
+- 空值、超长、重复、格式错误
+- 未登录、无权限、跨用户访问
+- 网络失败、数据库失败、第三方服务超时
+- 数据是否正确保存和恢复
+每条用例写明：准备条件、操作步骤、预期结果、失败时应看到的日志。最后指出哪些验收标准仍然过于主观。</pre>
+                  <button class="copy-button" type="button" data-copy-target="prompt-5">复制提示词</button>
+                </div>
+              </details>
+
+              <div class="check-list">
+                <label class="check-item">
+                  <input type="checkbox" data-progress="stage-5-tests" />
+                  <span><strong>完成 10 条测试用例</strong><span>包含正常、边界、权限和故障场景。</span></span>
+                </label>
+                <label class="check-item">
+                  <input type="checkbox" data-progress="stage-5-evidence" />
+                  <span><strong>建立验收证据规则</strong><span>明确截图、日志、数据记录和自动测试分别证明什么。</span></span>
+                </label>
+              </div>
+
+              <div class="spaced-review">
+                <b>进入阶段 6 前：凭记忆重建一项 Eval</b>
+                <p>选择预约平台一个核心任务，写出 Task、Trial、Grader、Trace、Outcome，并额外写出一个会污染分数的环境变量。</p>
+                <small>完成后只核对五个组成是否齐全，不先重读文章。</small>
+                <label class="review-confirm"><input type="checkbox" data-review="stage-5-review" />我已在至少 24 小时后完成</label>
+              </div>
+
+              <div class="stage-footer">
+                <div class="stage-output">
+                  <b>阶段产出</b>
+                  <span>测试用例集 + 验收评分表 + 证据留存规则。</span>
+                </div>
+                <a class="template-link" href="../materials/learner-workspace/outputs/阶段5-评测用例与证据规则.md" download>下载阶段模板</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="learning-stage" id="stage-6" data-stage="6">
+            <header class="stage-header">
+              <div class="stage-index">06</div>
+              <div>
+                <h3>理解生产事故与质量治理</h3>
+                <p>上线不是终点。你要能发现问题、定位原因、恢复服务并避免再次发生。</p>
+              </div>
+              <p class="stage-time">约 2.5 小时</p>
+            </header>
+            <div class="stage-body">
+              <div class="lesson-loop" aria-label="阶段六学习顺序">
+                <span>1 先猜一下</span><span>2 导读与精读摘要</span><span>3 回忆检查</span>
+                <span>4 拆解示例</span><span>5 自己解释</span><span>6 项目迁移</span>
+              </div>
+              <div class="chapter-prequestion">
+                <b>读前先判断，不要求答对</b>
+                <p>用户说“AI 最近变差了”。你第一分钟会记录哪些事实，才能避免直接把现象归因给模型？先写时间、影响范围和最近变更。</p>
+                <label class="reflection-field"><span>写下学习前会记录的事实</span><textarea data-reflection="stage-6-before" placeholder="开始时间：……&#10;影响范围：……&#10;最近变更：……"></textarea></label>
+                <span class="save-note">内容自动保存在当前浏览器。</span>
+              </div>
+              <div class="concept-sequence" aria-label="阶段六五个核心内容">
+                <h4>本章 5 个核心内容</h4>
+                <div class="concept-item"><span>1</span><div><b>症状不等于根因</b><p>相似的质量下降可能来自模型、提示、工具、缓存、路由、资源或数据，不能凭用户感受直接定性。</p></div></div>
+                <div class="concept-item"><span>2</span><div><b>先建立事实边界</b><p>记录开始时间、影响用户、功能范围、错误比例和版本变化，让排查有共同事实基础。</p></div></div>
+                <div class="concept-item"><span>3</span><div><b>假设与分层定位</b><p>把客户端、后端、数据库、第三方服务、AI 和基础设施逐层隔离，用证据排除而不是反复猜测。</p></div></div>
+                <div class="concept-item"><span>4</span><div><b>止损、回滚与恢复验证</b><p>先控制影响，再恢复已知正常版本；恢复后还要用指标和真实流程确认服务确实正常。</p></div></div>
+                <div class="concept-item"><span>5</span><div><b>无责复盘与预防</b><p>复盘聚焦系统条件、检测缺口和改进动作，为每项预防措施指定负责人、截止时间和验证方法。</p></div></div>
+              </div>
+              <div class="content-grid">
+                <div class="content-block">
+                  <h4>学完你要会</h4>
+                  <ul>
+                    <li>区分模型问题、产品配置问题和基础设施问题。</li>
+                    <li>知道日志、监控、告警、备份和回滚各自解决什么。</li>
+                    <li>用时间线和证据做事故复盘，不用猜测归因。</li>
+                  </ul>
+                </div>
+                <div class="content-block">
+                  <h4>本阶段阅读</h4>
+                  <ul class="reading-links">
+                    <li class="article-unit" id="article-a-postmortem-of-three-recent-issues">
+                      <details>
+                        <summary><span class="reading-type">必读</span><span class="article-title">A postmortem of three recent issues</span></summary>
+                        <div class="article-guide">
+                          <p>为什么读：质量退化可能来自路由、采样和硬件差异，不能把所有问题笼统归因给模型。</p>
+                          <div class="guide-grid">
+                            <div class="guide-block"><b>阅读前先判断</b><p>质量下降出现时，你最先记录什么：主观感受、时间与范围，还是立即修改提示词？先写理由。</p></div>
+                            <div class="guide-block"><b>论证地图</b><ul><li>相似症状对应不同根因。</li><li>跨硬件、路由和发布链路收集证据。</li><li>用检测、灰度和回滚缩短恢复时间。</li></ul></div>
+                            <div class="guide-block"><b>用类比理解</b><p>像医生先区分症状、检查结果和诊断：发热不是病因，只有证据链才能支持治疗决定。</p></div>
+                            <div class="guide-block"><b>最容易误解</b><p>两个事故表现相似，不代表根因相同；一次有效修复也不证明最初假设正确。</p></div>
+                            <div class="guide-block"><b>读完自己解释</b><p>从文章挑一个事故，分两栏写“已经观察到的证据”和“仍待验证的假设”，不能混写。</p></div>
+                          </div>
+                          <div class="guide-actions">
+                            <a class="original-link" href="articles/reader.html#a-postmortem-of-three-recent-issues">阅读中文精读摘要</a>
+                            <label class="article-complete check-item"><input type="checkbox" data-progress="article-three-issues" /><span><strong>已完成导读、中文精读摘要和阅读问题</strong></span></label>
+                          </div>
+                        </div>
+                      </details>
+                    </li>
+                    <li class="article-unit" id="article-april-23-postmortem">
+                      <details>
+                        <summary><span class="reading-type">必读</span><span class="article-title">An update on Claude Code quality reports</span></summary>
+                        <div class="article-guide">
+                          <p>为什么读：用户感觉“模型变差”时，根因可能是推理档位、缓存或系统提示等产品层改动。</p>
+                          <div class="guide-grid">
+                            <div class="guide-block"><b>阅读前先判断</b><p>同一个模型名称下，哪些产品层变化也会改变用户体验？先列出提示、推理配置、缓存和工具。</p></div>
+                            <div class="guide-block"><b>论证地图</b><ul><li>推理配置改变可用思考资源。</li><li>缓存和系统提示会造成链路级变化。</li><li>版本矩阵与回归测试必须覆盖整条产品链。</li></ul></div>
+                            <div class="guide-block"><b>用类比理解</b><p>像同一位厨师换了食材、设备和出餐规则：菜变差不能只归因于厨师能力。</p></div>
+                            <div class="guide-block"><b>最容易误解</b><p>“模型变差了”是用户症状描述，不是工程诊断。没有版本和链路证据，无法定位可修复的原因。</p></div>
+                            <div class="guide-block"><b>读完自己解释</b><p>为一次质量问题列模型、系统提示、缓存、工具、配置五列版本矩阵，并说明如何逐项排除。</p></div>
+                          </div>
+                          <div class="guide-actions">
+                            <a class="original-link" href="articles/reader.html#april-23-postmortem">阅读中文精读摘要</a>
+                            <label class="article-complete check-item"><input type="checkbox" data-progress="article-quality-reports" /><span><strong>已完成导读、中文精读摘要和阅读问题</strong></span></label>
+                          </div>
+                        </div>
+                      </details>
+                    </li>
+                    <li class="optional"><a href="articles/reader.html#managed-agents">Scaling Managed Agents</a><small>需要理解长任务恢复和运行基础设施时阅读。</small></li>
+                  </ul>
+                </div>
+              </div>
+
+              <fieldset class="knowledge-check" data-quiz="stage-6" data-answer="evidence">
+                <legend>即时回忆：先回答再继续</legend>
+                <p>用户集中反馈“AI 回复质量下降”。第一轮排查应该怎样做？</p>
+                <div class="quiz-options">
+                  <label class="quiz-option"><input type="radio" name="quiz-stage-6" value="prompt" />立即不断修改系统提示，直到主观感觉变好</label>
+                  <label class="quiz-option"><input type="radio" name="quiz-stage-6" value="model" />直接对外宣布模型能力下降</label>
+                  <label class="quiz-option"><input type="radio" name="quiz-stage-6" value="evidence" />确认时间和影响范围，检查最近变更、日志、模型配置、缓存、工具和基础设施</label>
+                </div>
+                <button class="quiz-submit" type="button">检查答案</button>
+                <p class="quiz-feedback" aria-live="polite"></p>
+                <label class="mastery-check check-item"><input type="checkbox" data-progress="quiz-stage-6" disabled /><span><strong>通过阶段六即时回忆</strong></span></label>
+              </fieldset>
+
+              <details class="worked-example">
+                <summary>先看一个完成示例：预约创建失败事故</summary>
+                <div class="example-body">
+                  <p><b>现象：</b>09:20 起创建预约失败率从 1% 升到 38%，查询功能正常。</p>
+                  <p><b>证据：</b>后端日志显示数据库写入超时；09:15 刚完成连接池配置发布；AI 解析步骤没有错误增加。</p>
+                  <p><b>动作：</b>09:28 回滚连接池配置，09:33 错误率恢复；随后补充连接池监控、发布前压力测试和自动回滚阈值。</p>
+                </div>
+              </details>
+
+              <details class="guided-practice">
+                <summary>补全练习：确认邮件突然减少</summary>
+                <div class="guided-body">
+                  <p>预约成功率正常，但确认邮件数量下降 60%。先不要修改提示词或模型。</p>
+                  <ol><li>写出需要确认的影响边界。</li><li>分别提出后端、第三方邮件服务和配置层假设。</li><li>为每个假设写一个证据和止损动作。</li></ol>
+                  <label class="reflection-field"><span>补全排查路径</span><textarea data-reflection="stage-6-guided" placeholder="影响边界：……&#10;假设与证据：……&#10;止损动作：……"></textarea></label>
+                </div>
+              </details>
+
+              <div class="self-explain">
+                <b>不要看答案，用自己的话讲 60 秒</b>
+                <p>把“用户说 AI 变差”分别改写成症状、证据和假设，再说明何时先回滚、何时继续调查。</p>
+                <label class="reflection-field"><span>记录你的解释</span><textarea data-reflection="stage-6-explain" placeholder="症状：……&#10;证据：……&#10;假设：……&#10;回滚条件：……"></textarea></label>
+              </div>
+
+              <div class="workflow" aria-label="阶段六学习动作">
+                <div class="workflow-step"><b>读</b><span>为每篇事故文画“现象、证据、根因、修复”时间线。</span></div>
+                <div class="workflow-step"><b>问</b><span>让 AI 扮演值班工程师，只根据证据提出假设。</span></div>
+                <div class="workflow-step"><b>做</b><span>为案例写日志、告警、备份和回滚要求。</span></div>
+                <div class="workflow-step"><b>验</b><span>模拟一次故障，确认你知道先看哪里、何时回滚。</span></div>
+              </div>
+
+              <details>
+                <summary>生成故障排查与复盘模板</summary>
+                <div class="prompt-wrap">
+                  <pre class="prompt" id="prompt-6">请为“[产品名称]”设计一份非程序员也能执行的故障处理手册。场景是“用户反馈核心功能突然失败”。手册必须按时间顺序包含：
+1. 先确认影响范围和开始时间；
+2. 查看哪些日志、监控和最近变更；
+3. 如何区分客户端、后端、数据库、第三方服务和 AI 模型问题；
+4. 什么条件下应该回滚；
+5. 如何验证服务恢复；
+6. 事故后如何写现象、时间线、根因、修复和预防措施。
+任何结论都必须绑定可观察证据。</pre>
+                  <button class="copy-button" type="button" data-copy-target="prompt-6">复制提示词</button>
+                </div>
+              </details>
+
+              <div class="check-list">
+                <label class="check-item">
+                  <input type="checkbox" data-progress="stage-6-runbook" />
+                  <span><strong>完成故障处理手册</strong><span>包含日志、监控、告警、回滚和恢复验证。</span></span>
+                </label>
+                <label class="check-item">
+                  <input type="checkbox" data-progress="stage-6-drill" />
+                  <span><strong>完成一次桌面演练</strong><span>让 AI 提供故障现象，你按手册逐步定位。</span></span>
+                </label>
+              </div>
+
+              <div class="spaced-review">
+                <b>课程完成 48 小时后：做一次无资料桌面演练</b>
+                <p>让 AI 只给你一个预约失败现象。你必须先问时间与范围，再查最近变更和分层证据，最后决定止损、回滚、恢复验证和预防措施。</p>
+                <small>只有在你能说清“证据支持什么、还不能支持什么”时，这一章才算真正掌握。</small>
+                <label class="review-confirm"><input type="checkbox" data-review="stage-6-review" />我已在至少 48 小时后完成</label>
+              </div>
+
+              <div class="stage-footer">
+                <div class="stage-output">
+                  <b>阶段产出</b>
+                  <span>故障处理手册 + 事故复盘模板 + 最小监控要求。</span>
+                </div>
+                <a class="template-link" href="../materials/learner-workspace/outputs/阶段6-故障处理与复盘.md" download>下载阶段模板</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="schedule">
+        <div class="section-head">
+          <p class="eyebrow">推荐节奏</p>
+          <h2>四周学习安排</h2>
+          <p>每周 3 次，每次 90 至 120 分钟。每个阶段至少跨两天，先回忆再复习，不连续刷完文章。</p>
+        </div>
+
+        <table class="schedule-table">
+          <thead>
+            <tr>
+              <th>时间</th>
+              <th>学习任务</th>
+              <th>离开座位前必须留下</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>第 1 周 / 1</td><td>开课设置 + 阶段 1 读前判断与第一篇精读</td><td>学习前判断 + Workflow / Agent 区分</td></tr>
+            <tr><td>第 1 周 / 2</td><td>Context engineering + 完成示例与补全练习</td><td>AI 产品执行流程图初稿</td></tr>
+            <tr><td>第 1 周 / 3</td><td>阶段 1 延迟回忆 + 阶段 2 规格练习</td><td>流程图修订 + 首个功能规格</td></tr>
+            <tr><td>第 2 周 / 1</td><td>长任务 Harness + 进度控制</td><td>Feature list 和 progress log</td></tr>
+            <tr><td>第 2 周 / 2</td><td>阶段 2 延迟回忆 + 工具设计</td><td>一个完整工具契约</td></tr>
+            <tr><td>第 2 周 / 3</td><td>Agent Skills + 上下文边界</td><td>最小工具清单和上下文包</td></tr>
+            <tr><td>第 3 周 / 1</td><td>阶段 3 延迟回忆 + Containment</td><td>开发、测试、生产隔离图</td></tr>
+            <tr><td>第 3 周 / 2</td><td>Sandboxing + 安全补全练习</td><td>权限矩阵和安全红线</td></tr>
+            <tr><td>第 3 周 / 3</td><td>阶段 4 延迟回忆 + Agent Eval</td><td>Eval 五要素和首批测试</td></tr>
+            <tr><td>第 4 周 / 1</td><td>基础设施噪声 + 评测补全练习</td><td>10 条测试与证据规则</td></tr>
+            <tr><td>第 4 周 / 2</td><td>生产事故精读 + 桌面演练</td><td>故障处理手册和复盘模板</td></tr>
+            <tr><td>第 4 周 / 3</td><td>延迟复习 + 工程判断包答辩</td><td>完整判断包 + 评分量表</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="recovery">
+        <div class="section-head">
+          <p class="eyebrow">遇阻恢复</p>
+          <h2>卡住时，不要硬读</h2>
+          <p>小白最容易在英文、术语、文章过长和“看懂但不会用”四个地方停下。按对应方法恢复。</p>
+        </div>
+
+        <div class="recovery-grid">
+          <article class="recovery-card">
+            <h3>英文读不动</h3>
+            <p>先按小标题阅读中文精读摘要；遇到关键概念时保留英文术语，需要引用或核对细节再打开英文来源。</p>
+          </article>
+          <article class="recovery-card">
+            <h3>术语太多</h3>
+            <p>一次只解释一个术语，并让 AI 给“是什么、为什么、反例、在我的项目里哪里出现”。</p>
+          </article>
+          <article class="recovery-card">
+            <h3>文章太长</h3>
+            <p>先读结论、图和案例，再回头读论证。只做当前阶段要求的产出，不追求记住全部细节。</p>
+          </article>
+          <article class="recovery-card">
+            <h3>看懂但不会用</h3>
+            <p>把文章观点改写成一条项目规则，再设计一个能证明规则被执行的检查项。</p>
+          </article>
+        </div>
+
+        <div class="notice">
+          <strong>恢复提示词：</strong>
+          “我卡在这段内容：[粘贴段落]。请先判断我缺的是前置概念、英文理解还是实际案例，再只补最小必要知识。解释后给我一道基于‘[我的产品]’的判断题。”
+        </div>
+      </section>
+
+      <section id="capstone">
+        <div class="section-head">
+          <p class="eyebrow">结课任务</p>
+          <h2>交付一套“工程判断包”</h2>
+          <p>以你的贯穿案例为对象，把六个阶段的产出装订成一份能指导 AI 实际工作的项目文件。</p>
+        </div>
+
+        <div class="capstone">
+          <h3>最终交付物</h3>
+          <p>不是演示视频，也不是“页面能打开”。以下八项都要有可查看的文件或证据。</p>
+          <div class="check-list">
+            <label class="check-item">
+              <input type="checkbox" data-progress="capstone-1" />
+              <span><strong>产品执行流程图</strong><span>能看出用户、系统、数据、AI 和外部工具如何协作。</span></span>
+            </label>
+            <label class="check-item">
+              <input type="checkbox" data-progress="capstone-2" />
+              <span><strong>项目规格与 feature list</strong><span>范围清楚，每项都有可观察的验收标准。</span></span>
+            </label>
+            <label class="check-item">
+              <input type="checkbox" data-progress="capstone-3" />
+              <span><strong>最小工具与上下文包</strong><span>没有无目的接入工具，也没有一次暴露全部资料。</span></span>
+            </label>
+            <label class="check-item">
+              <input type="checkbox" data-progress="capstone-4" />
+              <span><strong>环境隔离与权限矩阵</strong><span>开发、测试、生产的账号、数据和密钥清楚分开。</span></span>
+            </label>
+            <label class="check-item">
+              <input type="checkbox" data-progress="capstone-5" />
+              <span><strong>测试与验收证据</strong><span>包含正常、边界、权限、故障用例及运行结果。</span></span>
+            </label>
+            <label class="check-item">
+              <input type="checkbox" data-progress="capstone-6" />
+              <span><strong>监控与故障手册</strong><span>知道挂了如何发现、先查什么、何时回滚。</span></span>
+            </label>
+            <label class="check-item">
+              <input type="checkbox" data-progress="capstone-7" />
+              <span><strong>五分钟口头答辩</strong><span>不看稿解释三个最大风险和对应证据。</span></span>
+            </label>
+            <label class="check-item">
+              <input type="checkbox" data-progress="capstone-8" />
+              <span><strong>一次独立复核</strong><span>让另一位同学或另一段 AI 对话只看文件，指出缺口。</span></span>
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <section id="assessment">
+        <div class="section-head">
+          <p class="eyebrow">学习验收</p>
+          <h2>判断自己是否真的学会</h2>
+          <p>以下五类能力都达到，才算完成先修课。阅读数量不是成绩，判断和证据才是。</p>
+        </div>
+
+        <div class="assessment-grid">
+          <article class="assessment-card">
+            <h3>能解释</h3>
+            <p>不用术语堆砌，能向非技术同事说明 Agent、工具、上下文、沙箱和 eval。</p>
+          </article>
+          <article class="assessment-card">
+            <h3>能拆解</h3>
+            <p>能把模糊需求拆成小任务、数据规则、权限要求、失败场景和验收标准。</p>
+          </article>
+          <article class="assessment-card">
+            <h3>能验证</h3>
+            <p>不会因为 AI 自信地说“已完成”就接受结果，能要求测试、日志和数据证据。</p>
+          </article>
+          <article class="assessment-card">
+            <h3>能担责</h3>
+            <p>知道哪些风险不能交给 AI 决定，能设置边界、回滚方案和人工负责人。</p>
+          </article>
+          <article class="assessment-card">
+            <h3>能迁移</h3>
+            <p>不只会照抄预约案例，能在陌生产品里重新选择方法、解释取舍并指出反例。</p>
+          </article>
+        </div>
+
+        <div class="rubric-wrap">
+          <table class="rubric-table">
+            <thead><tr><th>维度</th><th>0 分：未掌握</th><th>1 分：有框架</th><th>2 分：能独立迁移</th></tr></thead>
+            <tbody>
+              <tr class="rubric-dimension"><td>解释</td><td>只能复述术语</td><td>能用预约案例解释</td><td>能换到新产品并指出反例</td></tr>
+              <tr class="rubric-dimension"><td>拆解</td><td>需求仍是一句话</td><td>能拆正常路径和规则</td><td>同时覆盖边界、权限和失败</td></tr>
+              <tr class="rubric-dimension"><td>验证</td><td>接受 AI 自述或页面截图</td><td>能提出测试和数据证据</td><td>能固定环境、重复运行并解释证据强弱</td></tr>
+              <tr class="rubric-dimension"><td>安全</td><td>依赖提示词和确认弹窗</td><td>知道隔离与最小权限</td><td>能给出系统边界、审计和撤销方法</td></tr>
+              <tr class="rubric-dimension"><td>迁移</td><td>只会照抄示例</td><td>能修改模板完成类似任务</td><td>能在陌生场景中选择并论证方法</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="foundation-boundary">
+          <strong>先修课通过标准：</strong>总分至少 8 / 10，且“验证”和“安全”不能为 0。这个分数只证明你具备进入产品搭建实操的判断基础，不代表生产产品已经毕业。
+        </div>
+      </section>
+
+      <section id="fullstack-bridge">
+        <div class="section-head">
+          <p class="eyebrow">下一条主线</p>
+          <h2>完整产品课还要完成八个动手里程碑</h2>
+          <p>当前六阶段解决“怎么指挥和验收 AI”。下面八步才解决“怎样把数据库、后端、客户端和生产运维真正搭起来”。两条路径不能互相替代。</p>
+        </div>
+
+        <div class="fullstack-bridge">
+          <div class="bridge-row"><span class="bridge-index">01</span><b>产品解剖与技术栈</b><p>画出客户端、后端、数据库、AI 和外部服务的数据流，确定一套贯穿工具和替代方案。</p></div>
+          <div class="bridge-row"><span class="bridge-index">02</span><b>真实数据库</b><p>设计表、字段、关系、约束和迁移；数据在重启后保留，并完成一次备份与恢复。</p></div>
+          <div class="bridge-row"><span class="bridge-index">03</span><b>后端与 API</b><p>实现核心业务规则、前后端校验、错误处理和审计日志，不让客户端直接决定数据权限。</p></div>
+          <div class="bridge-row"><span class="bridge-index">04</span><b>客户端体验</b><p>完成表单、列表、加载、空状态、成功与失败反馈，并让外行能在手机和电脑独立完成核心任务。</p></div>
+          <div class="bridge-row"><span class="bridge-index">05</span><b>登录、权限与隐私</b><p>使用成熟鉴权服务，验证未登录、越权和跨用户访问；梳理收集的数据及使用边界。</p></div>
+          <div class="bridge-row"><span class="bridge-index">06</span><b>部署与环境隔离</b><p>区分开发、测试和生产，配置域名与 HTTPS，用另一台设备和网络完成真实访问验收。</p></div>
+          <div class="bridge-row"><span class="bridge-index">07</span><b>监控、备份与恢复</b><p>接入日志、监控和告警，模拟故障、回滚版本并从备份恢复数据。</p></div>
+          <div class="bridge-row"><span class="bridge-index">08</span><b>真实用户与安全迭代</b><p>让真实用户完成任务，处理反馈，再发布一个不破坏旧功能的增量并演示回滚。</p></div>
+        </div>
+
+        <div class="bridge-status">
+          <b>当前项目状态</b>
+          <span>工程判断先修课已经可学习；完整产品课目前只有大纲，还没有达到“逐步带小白搭出生产产品”的教学完成度。后续建设应优先从数据库到部署的八个动手里程碑，而不是继续增加 Agent 文章。</span>
+        </div>
+      </section>
+
+      <section id="resources">
+        <div class="section-head">
+          <p class="eyebrow">资料入口</p>
+          <h2>继续查阅</h2>
+          <p>分类报告已经转换成适合浏览器阅读和筛选的 HTML 页面；原始文件保留用于追溯。</p>
+        </div>
+
+        <div class="resource-row">
+          <a class="resource-link" href="articles/reader.html">
+            <strong>25 篇中文精读摘要</strong>
+            <span>课程优先阅读入口，支持搜索、上一篇和下一篇。</span>
+          </a>
+          <a class="resource-link" href="articles/classification.html">
+            <strong>文章分类报告</strong>
+            <span>可搜索、可筛选，包含 25 篇文章的分类依据。</span>
+          </a>
+          <a class="resource-link" href="../content/sources/anthropic/articles-fulltext.md">
+            <strong>全文本地归档</strong>
+            <span>用于离线检索英文来源；日常学习优先使用中文精读摘要。</span>
+          </a>
+          <a class="resource-link" href="../content/sources/anthropic/crawl-summary.json">
+            <strong>抓取校验摘要</strong>
+            <span>查看文章数量、字符数和重定向记录。</span>
+          </a>
+        </div>
+      </section>
+
+      <footer>
+        <p>课程内容基于项目目录中的 Anthropic Engineering 全文归档与分类报告整理。中文精读摘要是课程团队基于全文制作的非官方学习材料，不是逐段或完整翻译；涉及数字、方法、引文和边界条件时请以文章原页为准。原文版权归原作者所有。</p>
+        <p>学习进度只保存在当前浏览器本地，不会上传。</p>
+      </footer>
+    </main>
+
+    <aside class="progress-panel" aria-label="学习进度">
+      <p class="panel-label">你的进度</p>
+      <p class="progress-value" id="progressValue">0%</p>
+      <div class="progress-track" id="progressTrack" role="progressbar" aria-label="课程进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <p class="progress-copy" id="progressCopy">已完成 0 项</p>
+      <p class="progress-copy" id="reviewCopy">延迟复习 0 / 6</p>
+      <div class="next-task">
+        <b>下一步</b>
+        <span id="nextTask">完成开课设置</span>
+      </div>
+      <button class="reset-button" id="resetProgress" type="button">重置学习进度</button>
+    </aside>
+  </div>
+
+  <div class="article-drawer" id="articleDrawer" hidden>
+    <button class="drawer-backdrop" type="button" data-close-drawer aria-label="关闭文章抽屉"></button>
+    <section class="drawer-panel" role="dialog" aria-modal="true" aria-labelledby="drawerTitle">
+      <header class="drawer-header">
+        <div class="drawer-header-copy">
+          <p>主线阅读 · 中文精读摘要</p>
+          <h2 id="drawerTitle">文章精读摘要</h2>
+        </div>
+        <button class="drawer-close" id="drawerClose" type="button" data-close-drawer aria-label="关闭文章抽屉" title="关闭">×</button>
+      </header>
+      <iframe class="drawer-frame" id="drawerFrame" title="中文精读摘要"></iframe>
+      <footer class="drawer-footer">
+        <p id="drawerContext">读完后关闭抽屉，回到当前文章继续完成阅读问题和即时回忆。</p>
+        <button class="button primary" type="button" data-close-drawer>返回当前任务</button>
+      </footer>
+    </section>
+  </div>
+
+  <script src="assets/course.js"></script>
+</body>
+</html>

@@ -14,7 +14,7 @@
 
 ## 审查范围
 
-- 逐一检查根目录、`agent/`、`anthropic-engineering-crawl/`、`scripts/`、学习工作区和压缩包中的全部工程文件。
+- 逐一检查当时根目录、`agent/`、来源档案、`scripts/`、学习工作区和压缩包中的全部工程文件；本报告中的路径已随之后的分层架构迁移更新。
 - 逐一检查 6 个阶段、12 篇必读、13 篇选读、25 篇中文精读摘要及其英文全文。
 - 检查首次进入、开课准备、文档地图、文章抽屉、进度、回忆题、结课、恢复与正式产品课桥接。
 - 检查课程目标、活动、评测、项目产出、Agent 规则、长期记忆和自动校验是否一致。
@@ -82,8 +82,9 @@
 | 文件 | 审查结果 |
 |---|---|
 | `AGENTS.md` | 已更新先修课边界、摘要标注、渐隐支架和验收数量 |
-| `AI时代非程序员全栈产品课程大纲.md` | 正式产品目标有效；新增与先修课的明确关系 |
-| `Anthropic工程博客学习路径课程.html` | 完成定位、动线、练习、评测、进度、模板和正式产品课桥接优化 |
+| `content/curriculum/fullstack-course-outline.zh-CN.md` | 正式产品目标有效；新增与先修课的明确关系 |
+| `course/index.html` | 完成定位、动线、练习、评测、进度、模板和正式产品课桥接优化 |
+| `course/assets/` | 从三个成品 HTML 中拆出的样式、交互和摘要数据 |
 | `MEMORY.md` | 需要并已在本轮结束时同步最新状态与风险 |
 | `agent/README.md` | 目录说明有效，无教学逻辑冲突 |
 | `agent/feature_list.md` | 已更新新能力、未完成多题测验和正式产品课状态 |
@@ -98,29 +99,32 @@
 | `agent/roles/qa_reviewer.md` | 已加入 5 个准备动作、18 个回答、6 个模板和 6 个延迟复习检查 |
 | `agent/templates/lesson_unit.md` | 已加入引导练习、量规和延迟复习状态 |
 | `agent/templates/task.md` | 通用任务记录结构有效，无需改动 |
-| `anthropic-engineering-crawl/anthropic_engineering_articles_classification.html` | 25 篇搜索与分类有效；入口统一改称中文精读摘要 |
-| `anthropic-engineering-crawl/anthropic_engineering_articles_classification.md` | 原始分类依据完整；术语已同步 |
-| `anthropic-engineering-crawl/anthropic_engineering_articles_fulltext.json` | 25 篇全文结构有效，保留为证据档案 |
-| `anthropic-engineering-crawl/anthropic_engineering_articles_fulltext.md` | 全文镜像有效，保留为离线研究档案 |
-| `anthropic-engineering-crawl/anthropic_engineering_articles_zh.html` | 25 篇均可搜索和直达；已明确为精读摘要而非完整翻译 |
-| `anthropic-engineering-crawl/crawl_summary.json` | 抓取状态和文章数量有效 |
-| `audit-screenshots/02-openai-reference.png` | 已查看，作为产品视觉语言参考 |
-| `audit-screenshots/03-openai-developers-reference.png` | 已查看，作为文档信息密度参考 |
+| `course/articles/classification.html` | 25 篇搜索与分类有效；入口统一改称中文精读摘要 |
+| `content/sources/anthropic/article-classification.md` | 原始分类依据完整；术语已同步 |
+| `content/sources/anthropic/articles-fulltext.json` | 25 篇全文结构有效，保留为证据档案 |
+| `content/sources/anthropic/articles-fulltext.md` | 全文镜像有效，保留为离线研究档案 |
+| `course/articles/reader.html` | 25 篇均可搜索和直达；已明确为精读摘要而非完整翻译 |
+| `content/sources/anthropic/crawl-summary.json` | 抓取状态和文章数量有效 |
+| `docs/references/openai-product.png` | 已查看，作为产品视觉语言参考 |
+| `docs/references/openai-developers.png` | 已查看，作为文档信息密度参考 |
 | `scripts/validate_project.py` | 已增加新模板、练习、回答、复习和准备动作校验 |
-| `课程学习工作区模板.zip` | 本轮将按更新后的目录重新打包并核对 |
-| `课程学习工作区模板/开始这里.txt` | 已说明学习顺序、六份模板和先修边界 |
-| `课程学习工作区模板/notes/阶段学习笔记.txt` | 已扩展为五概念、前后判断和延迟回忆 |
-| `课程学习工作区模板/outputs/阶段产出记录.txt` | 通用记录可继续作为索引 |
-| `课程学习工作区模板/outputs/阶段1-Agent执行流程与概念说明.md` | 新增，可直接填写流程、概念、边界和证据 |
-| `课程学习工作区模板/outputs/阶段2-产品规格与进度控制.md` | 新增，可直接填写规格、验收和进度 |
-| `课程学习工作区模板/outputs/阶段3-工具与上下文边界.md` | 新增，可直接填写工具契约、上下文和数据暴露 |
-| `课程学习工作区模板/outputs/阶段4-安全边界与权限矩阵.md` | 新增，可直接填写环境、角色、权限和红线 |
-| `课程学习工作区模板/outputs/阶段5-评测用例与证据规则.md` | 新增，可直接填写用例、评分和证据规则 |
-| `课程学习工作区模板/outputs/阶段6-故障处理与复盘.md` | 新增，可直接填写排障、恢复和复盘 |
-| `课程学习工作区模板/project/预约管理平台案例.txt` | 默认案例覆盖多用户、状态、通知和异常，适合六阶段 |
-| `课程学习工作区模板/prompts/AI学习助教提示词.txt` | 已改为先问后教、先尝试后反馈，并提醒先修边界 |
-| `课程学习工作区模板/questions/待解决问题.txt` | 问题池结构有效 |
-| `教育审查与优化报告.md` | 汇总逐章、逐文章、逐文件结论、研究依据和未解决风险 |
+| `materials/learner-workspace.zip` | 已由唯一源目录重新打包并核对 |
+| `materials/learner-workspace/开始这里.txt` | 已说明学习顺序、六份模板和先修边界 |
+| `materials/learner-workspace/notes/阶段学习笔记.txt` | 已扩展为五概念、前后判断和延迟回忆 |
+| `materials/learner-workspace/outputs/阶段产出记录.txt` | 通用记录可继续作为索引 |
+| `materials/learner-workspace/outputs/阶段1-Agent执行流程与概念说明.md` | 新增，可直接填写流程、概念、边界和证据 |
+| `materials/learner-workspace/outputs/阶段2-产品规格与进度控制.md` | 新增，可直接填写规格、验收和进度 |
+| `materials/learner-workspace/outputs/阶段3-工具与上下文边界.md` | 新增，可直接填写工具契约、上下文和数据暴露 |
+| `materials/learner-workspace/outputs/阶段4-安全边界与权限矩阵.md` | 新增，可直接填写环境、角色、权限和红线 |
+| `materials/learner-workspace/outputs/阶段5-评测用例与证据规则.md` | 新增，可直接填写用例、评分和证据规则 |
+| `materials/learner-workspace/outputs/阶段6-故障处理与复盘.md` | 新增，可直接填写排障、恢复和复盘 |
+| `materials/learner-workspace/project/预约管理平台案例.txt` | 默认案例覆盖多用户、状态、通知和异常，适合六阶段 |
+| `materials/learner-workspace/prompts/AI学习助教提示词.txt` | 已改为先问后教、先尝试后反馈，并提醒先修边界 |
+| `materials/learner-workspace/questions/待解决问题.txt` | 问题池结构有效 |
+| `content/curriculum/education-audit.zh-CN.md` | 汇总逐章、逐文章、逐文件结论、研究依据和未解决风险 |
+| `docs/architecture.md` | 记录目录分层、依赖方向、兼容入口和维护规则 |
+| `scripts/check-js-syntax.mjs` | 检查三个运行脚本的 JavaScript 语法 |
+| `scripts/package_materials.py` | 从唯一源目录重复生成学员工作区压缩包 |
 
 ## 研究依据
 

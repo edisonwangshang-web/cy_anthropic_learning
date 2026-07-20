@@ -8,8 +8,8 @@
 
 本报告基于本目录下两份文件生成：
 
-- `anthropic_engineering_articles_fulltext.json`
-- `anthropic_engineering_articles_fulltext.md`
+- `articles-fulltext.json`
+- `articles-fulltext.md`
 
 ## 一、分类框架
 

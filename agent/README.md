@@ -14,10 +14,10 @@
 开始任务时：
 
 1. 阅读根目录 `AGENTS.md` 和 `MEMORY.md`。
-2. 阅读 `memory/progress.md`，确认当前完成度。
+2. 阅读 `docs/architecture.md` 和 `memory/progress.md`，确认目录边界与当前完成度。
 3. 选择一个或多个角色文件。
 4. 从 `feature_list.md` 中确认影响的能力。
-5. 修改后运行 `python3 scripts/validate_project.py`。
+5. 修改后运行 `python3 scripts/validate_project.py` 和 `node scripts/check-js-syntax.mjs`。
 6. 更新进度和决策记忆。
 
 ## 记忆规则
